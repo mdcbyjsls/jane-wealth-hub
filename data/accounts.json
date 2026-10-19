@@ -1,0 +1,58 @@
+[
+  {
+    "institution": "Fidelity",
+    "accountType": "brokerage",
+    "balance": 320000,
+    "assetClassBreakdown": { "stocks": 72, "bonds": 10, "cash": 3, "other": 15 },
+    "lastUpdatedDaysAgo": 0
+  },
+  {
+    "institution": "Fidelity",
+    "accountType": "Roth IRA",
+    "balance": 180000,
+    "assetClassBreakdown": { "stocks": 80, "bonds": 15, "cash": 5, "other": 0 },
+    "lastUpdatedDaysAgo": 1
+  },
+  {
+    "institution": "Vanguard",
+    "accountType": "401(k)",
+    "balance": 350000,
+    "assetClassBreakdown": { "stocks": 65, "bonds": 30, "cash": 5, "other": 0 },
+    "lastUpdatedDaysAgo": 2
+  },
+  {
+    "institution": "Vanguard",
+    "accountType": "IRA",
+    "balance": 150000,
+    "assetClassBreakdown": { "stocks": 55, "bonds": 35, "cash": 10, "other": 0 },
+    "lastUpdatedDaysAgo": 1
+  },
+  {
+    "institution": "Ally Bank",
+    "accountType": "HYSA",
+    "balance": 60000,
+    "assetClassBreakdown": { "stocks": 0, "bonds": 0, "cash": 100, "other": 0 },
+    "lastUpdatedDaysAgo": 5
+  },
+  {
+    "institution": "ally bank",
+    "accountType": "HYSA",
+    "balance": 40000,
+    "assetClassBreakdown": { "stocks": 0, "bonds": 0, "cash": 100, "other": 0 },
+    "lastUpdatedDaysAgo": 2
+  },
+  {
+    "institution": "Chase",
+    "accountType": "checking",
+    "balance": 25000,
+    "assetClassBreakdown": { "stocks": 0, "bonds": 0, "cash": 100, "other": 0 },
+    "lastUpdatedDaysAgo": 0
+  },
+  {
+    "institution": "Sallie Mae",
+    "accountType": "liability",
+    "balance": 32000,
+    "assetClassBreakdown": { "stocks": 0, "bonds": 0, "cash": 0, "other": 0 },
+    "lastUpdatedDaysAgo": 1
+  }
+]

@@ -35,7 +35,7 @@ implementation tasks are never optional.
 
 ## Tasks
 
-- [ ] 1. Scaffold the Next.js project and configure the toolchain
+- [x] 1. Scaffold the Next.js project and configure the toolchain
   - Initialize a Next.js App Router project with TypeScript in the workspace root
   - Enable TypeScript strict mode in `tsconfig.json`; forbid implicit `any`
   - Add and configure Tailwind CSS (config + global stylesheet)
@@ -45,20 +45,20 @@ implementation tasks are never optional.
   - Add a minimal `app/layout.tsx` and placeholder `app/page.tsx` so the project builds
   - _Requirements: foundation for all; supports R6.1, R9_
 
-- [ ] 2. Define shared TypeScript types
-  - [ ] 2.1 Create `types/accounts.ts` with the core account model
+- [x] 2. Define shared TypeScript types
+  - [x] 2.1 Create `types/accounts.ts` with the core account model
     - Define `AssetClass`, `AccountType`, `AssetClassBreakdown`, and `Account`
     - On `Account`, the freshness field is `lastUpdatedDaysAgo: number` (a non-negative integer offset in days), **not** a fixed ISO `lastUpdated: string`; the absolute `lastUpdated` date is derived at the boundary from `now − lastUpdatedDaysAgo days`
     - _Requirements: 1.1, 2.1, 3.1, 7.1, 7.4, 8.1, 8.3_
 
-  - [ ] 2.2 Add calculation result and target/freshness/validation types
+  - [x] 2.2 Add calculation result and target/freshness/validation types
     - Define `NetWorthResult`, `InstitutionGroup`, `ClassTotals`, `AllocationResult`, `DriftDirection`, `DriftClassification`, `ClassDrift`, `DriftResult`, `OnTrackStatus`
     - Define `TargetAllocation`, `TargetInput`
     - Define `AccountFreshness`, `InstitutionFreshness`, `FreshnessResult` (freshness types carry the **derived** absolute `lastUpdated` Date)
     - Define `ValidationErrorCode`, `ValidationError`, `ValidationResult`
     - _Requirements: 1.1, 2.2, 3.2, 4.1, 4.3, 4.7, 4.9, 5.1, 7.5, 8.1, 8.3_
 
-- [ ] 3. Create the static account data
+- [x] 3. Create the static account data
   - Author `data/accounts.json` with a realistic mass-affluent spread across multiple institutions (brokerage, IRA, Roth IRA, 401(k), HYSA, checking) plus at least one liability
   - Model the liability as a **non-housing loan** (student loan or car loan), **not** a mortgage: the user currently rents and Spec 3 models the buy-vs-rent decision, so a pre-existing mortgage would contradict the product story by implying the user already owns a home. Store the amount owed as a positive balance (it is subtracted inside `computeNetWorth`)
   - Include institutions whose subtotals tie and names differing only by case to exercise ordering
@@ -66,30 +66,30 @@ implementation tasks are never optional.
   - Keep each non-liability `assetClassBreakdown` summing to 100; data only, no logic
   - _Requirements: 2.3, 2.5, 3.1, 7.1, 8.1, 8.3_
 
-- [ ] 4. Implement account-data validation
-  - [ ] 4.1 Implement `validateAccounts(raw: unknown): ValidationResult` in `lib/calculations/allocation.ts`
+- [x] 4. Implement account-data validation
+  - [x] 4.1 Implement `validateAccounts(raw: unknown): ValidationResult` in `lib/calculations/allocation.ts`
     - Treat raw input as `unknown`; require an array, else fail
     - Check each account for required fields and types: institution name (1–120 chars), known `AccountType`, finite balance, present `AssetClassBreakdown`, non-negative integer `lastUpdatedDaysAgo`
     - Enforce the non-liability breakdown-sum rule (sum to 100 within 0.01 tolerance); exempt liabilities
     - Report `ValidationError` with `code`, `accountIndex`, and `field` where applicable; return the discriminated union (no throwing)
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5_
 
-  - [ ]* 4.2 Write unit tests for `validateAccounts`
+  - [x] 4.2 Write unit tests for `validateAccounts`
     - One concrete example per `ValidationErrorCode`, asserting reported `accountIndex` and `field`
     - Breakdown sum off by exactly 0.01 (accepted) vs 0.02 (rejected)
     - _Requirements: 7.1, 7.2, 7.3, 7.5_
 
-- [ ] 5. Implement net worth and institution aggregation
-  - [ ] 5.1 Implement `computeNetWorth(accounts): NetWorthResult`
+- [x] 5. Implement net worth and institution aggregation
+  - [x] 5.1 Implement `computeNetWorth(accounts): NetWorthResult`
     - Sum non-liability balances as `totalAssets`; sum liability balances (positive) as `totalLiabilities`; `netWorth = totalAssets - totalLiabilities`
     - Return 0 for the empty set; allow negative net worth to flow through
     - _Requirements: 1.1, 1.4, 6.4_
 
-  - [ ]* 5.2 Write unit tests for `computeNetWorth`
+  - [x] 5.2 Write unit tests for `computeNetWorth`
     - Empty set, assets only, liabilities exceeding assets (negative), all-zero balances
     - _Requirements: 1.1, 1.4, 6.4_
 
-  - [ ] 5.3 Implement `computeInstitutionGroups(accounts): InstitutionGroup[]`
+  - [x] 5.3 Implement `computeInstitutionGroups(accounts): InstitutionGroup[]`
     - Group accounts by institution name; subtotal = arithmetic sum of member balances
     - Order groups by descending subtotal, case-insensitive alphabetical tie-break; preserve input order of members
     - Handle sizes 0 and 1
@@ -104,46 +104,46 @@ implementation tasks are never optional.
 - [ ] 7. Checkpoint - Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 8. Implement asset allocation
-  - [ ] 8.1 Implement `computeClassTotals(accounts): ClassTotals`
+- [x] 8. Implement asset allocation
+  - [x] 8.1 Implement `computeClassTotals(accounts): ClassTotals`
     - For each non-liability account, add `balance * (breakdownPercentageForClass / 100)` to each class total
     - Exclude liability accounts from all class totals
     - _Requirements: 3.1, 3.6_
 
-  - [ ] 8.2 Implement `computeActualAllocation(totals): AllocationResult`
+  - [x] 8.2 Implement `computeActualAllocation(totals): AllocationResult`
     - Compute percentages as class total divided by sum of class totals; round to one decimal
     - Apply largest-remainder assignment so displayed percentages sum to exactly 100
     - When total asset value is 0, set all four percentages to 0 and set `isZeroTotal` true (no division by zero)
     - _Requirements: 3.2, 3.3, 3.4, 6.5_
 
-  - [ ]* 8.3 Write unit tests for `computeActualAllocation`
+  - [ ] 8.3 Write unit tests for `computeActualAllocation`
     - Zero-total path (all 0); a case where naive rounding sums to 99.9/100.1 and residual is assigned to the largest unrounded class
     - _Requirements: 3.3, 3.4_
 
-  - [ ]* 8.4 Write property test for allocation percentages
+  - [x] 8.4 Write property test for allocation percentages
     - **Property 5: Actual allocation percentages sum to exactly 100 (or all zero)**
     - **Validates: Requirements 3.2, 3.3, 3.4, 6.5**
 
 - [ ] 9. Implement drift and on-track status
-  - [ ] 9.1 Implement `computeDrift(actual, totals, target): DriftResult`
+  - [x] 9.1 Implement `computeDrift(actual, totals, target): DriftResult`
     - Per class: `driftPoints = actual% - target%`; `driftDollars = actual$ - (target%/100 * totalAssetValue)`
     - Populate `byClass`, `offTargetCount`, and `largest` (largest absolute point drift when off target, else null)
     - _Requirements: 4.1, 4.8, 4.9_
 
-  - [ ] 9.2 Implement `classifyDrift(driftPoints): DriftClassification`
+  - [x] 9.2 Implement `classifyDrift(driftPoints): DriftClassification`
     - "on track" when `abs(drift) <= 5`, "over" when `drift > 5`, "under" when `drift < -5`
     - _Requirements: 4.3, 4.4, 4.5_
 
-  - [ ] 9.3 Implement `computeOnTrackStatus(drift): OnTrackStatus`
+  - [x] 9.3 Implement `computeOnTrackStatus(drift): OnTrackStatus`
     - "On track" when off-target count is 0; otherwise "N of 4 asset classes off target"
     - Build the plain-language largest-drift sentence (direction, point magnitude, approximate dollars); null when fully on track
     - _Requirements: 4.6, 4.7, 4.8, 4.9_
 
-  - [ ]* 9.4 Write unit tests for drift and status functions
+  - [ ] 9.4 Write unit tests for drift and status functions
     - Drift at exactly +5 and -5 (on track boundary); fully on-track vs mixed off-target; largest-drift sentence wording
     - _Requirements: 4.3, 4.4, 4.5, 4.7, 4.8, 4.9_
 
-  - [ ]* 9.5 Write property test for drift classification
+  - [ ] 9.5 Write property test for drift classification
     - **Property 8: Drift classification follows the ±5 threshold**
     - **Validates: Requirements 4.3, 4.4, 4.5**
 
@@ -154,27 +154,27 @@ implementation tasks are never optional.
     - Flag an account stale when its derived `lastUpdated` is strictly more than 3 days before `now` (exactly 3 days is not stale); institution stale if any member is stale
     - _Requirements: 8.1, 8.2, 8.3_
 
-  - [ ]* 10.2 Write unit tests for `computeFreshness`
+  - [ ] 10.2 Write unit tests for `computeFreshness`
     - Boundary expressed in days-ago: 3 days ago (not stale) vs 4 days ago (stale); differing days-ago values within one institution resolve `asOf` to the most recent
     - _Requirements: 8.2, 8.3_
 
 - [ ] 11. Checkpoint - Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 12. Implement the Target_Store (localStorage)
-  - [ ] 12.1 Implement `lib/target/targetStore.ts`
+- [x] 12. Implement the Target_Store (localStorage)
+  - [x] 12.1 Implement `lib/target/targetStore.ts`
     - Export `DEFAULT_TARGET` (60/20/10/10, `isExample: true`)
     - Implement `validateTarget(input: TargetInput): TargetValidationResult` (integers 0–100; must sum to 100; identify offending field)
     - Implement `saveTarget(target)` and `loadTarget()` (returns `DEFAULT_TARGET` on missing/invalid stored value; validated targets return with `isExample: false`)
     - Browser-only; imported only by the client island, never by the pure calculator
     - _Requirements: 5.1, 5.2, 5.3, 5.5, 5.6, 5.7_
 
-- [ ] 13. Implement user-facing messages and formatting helpers
-  - [ ] 13.1 Create a centralized message-constants module
+- [x] 13. Implement user-facing messages and formatting helpers
+  - [x] 13.1 Create a centralized message-constants module
     - Define all LoadError, ValidationError, Empty (zero accounts), and empty-allocation copy in plain language with a next-action phrase; no "JSON", "validation", "localStorage", or file names
     - _Requirements: 6.2, 6.3, 6.4, 6.5, 6.6_
 
-  - [ ] 13.2 Implement formatting helpers in `lib/` (pure, no fetch/UI)
+  - [x] 13.2 Implement formatting helpers in `lib/` (pure, no fetch/UI)
     - Whole-dollar USD via `Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })`; negative shows explicit minus sign
     - One-decimal percentage formatter (e.g., "42.5 percent") for the pie text alternative
     - _Requirements: 1.2, 1.4, 9.1_

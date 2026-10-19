@@ -1,0 +1,483 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1. Scaffold the Next.js project and configure the toolchain": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434884606
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434893351
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792435250461
+      }
+    ],
+    "2.1 Create `types/accounts.ts` with the core account model": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434884817
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792435255558
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792435387525
+      }
+    ],
+    "2.2 Add calculation result and target/freshness/validation types": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434884904
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792435391687
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792435573179
+      }
+    ],
+    "3. Create the static account data": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434884979
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792435392524
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792435574024
+      }
+    ],
+    "4.1 Implement `validateAccounts(raw: unknown): ValidationResult` in `lib/calculations/allocation.ts`": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434885012
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792435580862
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792435715429
+      }
+    ],
+    "5.1 Implement `computeNetWorth(accounts): NetWorthResult`": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434885055
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792435720463
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792435870512
+      }
+    ],
+    "5.3 Implement `computeInstitutionGroups(accounts): InstitutionGroup[]`": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434885085
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792435873600
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792435942677
+      }
+    ],
+    "6. Early integration checkpoint - render real data unstyled": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434885112
+      }
+    ],
+    "7. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434885143
+      }
+    ],
+    "8.1 Implement `computeClassTotals(accounts): ClassTotals`": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434885169
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792435949897
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792436001221
+      }
+    ],
+    "8.2 Implement `computeActualAllocation(totals): AllocationResult`": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434885196
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792436008764
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792436202065
+      }
+    ],
+    "9.1 Implement `computeDrift(actual, totals, target): DriftResult`": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434885222
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792436322419
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792436401138
+      }
+    ],
+    "9.2 Implement `classifyDrift(driftPoints): DriftClassification`": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434885262
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792436208195
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792436316995
+      }
+    ],
+    "9.3 Implement `computeOnTrackStatus(drift): OnTrackStatus`": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434885296
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792436404653
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792436490638
+      }
+    ],
+    "10.1 Implement `computeFreshness(accounts, now): FreshnessResult`": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434885502
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792436502456
+      }
+    ],
+    "11. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434885568
+      }
+    ],
+    "12.1 Implement `lib/target/targetStore.ts`": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434885696
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792435581882
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792435711779
+      }
+    ],
+    "13.1 Create a centralized message-constants module": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434885736
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792435583218
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792435713196
+      }
+    ],
+    "13.2 Implement formatting helpers in `lib/` (pure, no fetch/UI)": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434885771
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792435584243
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792435714114
+      }
+    ],
+    "14.1 Implement `components/ui/LoadingSkeleton.tsx`": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434885806
+      }
+    ],
+    "14.2 Implement `components/ui/ErrorState.tsx`": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434885850
+      }
+    ],
+    "14.3 Implement `components/ui/EmptyState.tsx`": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434885906
+      }
+    ],
+    "14.4 Implement `components/ui/StaleDataBanner.tsx` and `components/ui/FreshnessBadge.tsx`": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434885969
+      }
+    ],
+    "15.1 Implement `components/ui/NetWorthHeader.tsx`": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434886002
+      }
+    ],
+    "15.2 Implement `components/ui/InstitutionList.tsx`": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434886042
+      }
+    ],
+    "16.1 Implement `components/charts/AllocationPie.tsx`": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434886098
+      }
+    ],
+    "16.2 Implement `components/ui/OnTrackBanner.tsx`": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434886212
+      }
+    ],
+    "16.3 Implement `components/ui/AllocationSection.tsx`": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434886239
+      }
+    ],
+    "16.4 Implement `components/ui/TargetEditor.tsx`": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434886268
+      }
+    ],
+    "17.1 Implement `components/layout/DashboardShell.tsx`": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434886298
+      }
+    ],
+    "17.2 Implement `components/layout/DashboardClient.tsx` (client island)": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434886335
+      }
+    ],
+    "17.3 Wire `app/page.tsx` (server component), replacing the temporary checkpoint page": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434886366
+      }
+    ],
+    "17.4 Add a React error boundary around the dashboard": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434886401
+      }
+    ],
+    "18.1 Apply accessibility attributes and focus handling across components": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434886434
+      }
+    ],
+    "19. Final checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792434886473
+      }
+    ],
+    "2. Define shared TypeScript types": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792435573249
+      }
+    ],
+    "12. Implement the Target_Store (localStorage)": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792435711828
+      }
+    ],
+    "13. Implement user-facing messages and formatting helpers": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792435714161
+      }
+    ],
+    "4. Implement account-data validation": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792435715461
+      }
+    ],
+    "5. Implement net worth and institution aggregation": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792435942710
+      }
+    ],
+    "4.2 Write unit tests for `validateAccounts`": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792436010220
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792436199764
+      }
+    ],
+    "5.2 Write unit tests for `computeNetWorth`": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792436011039
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792436201098
+      }
+    ],
+    "8. Implement asset allocation": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792436202099
+      }
+    ],
+    "8.4 Write property test for allocation percentages": [
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792436209131
+      },
+      {
+        "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792436317881
+      }
+    ]
+  }
+}
