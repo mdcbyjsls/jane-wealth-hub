@@ -223,7 +223,7 @@ implementation tasks are never optional.
     - Side-by-side actual-vs-target display per class; label default target "Example target, set your own"
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.7, 9.2, 9.4_
 
-- [ ] 17. Assemble the dashboard shell and state machine
+- [x] 17. Assemble the dashboard shell and state machine
   - [x] 17.1 Implement `components/layout/DashboardShell.tsx`
     - Page container with heading structure and landmarks; defined document order of sections
     - _Requirements: 9.2_
@@ -233,7 +233,7 @@ implementation tasks are never optional.
     - Manage the loading state for first paint / target read
     - _Requirements: 4.1, 5.4, 5.5, 5.6, 6.1_
 
-  - [ ] 17.3 Wire `app/page.tsx` (server component), replacing the temporary checkpoint page
+  - [x] 17.3 Wire `app/page.tsx` (server component), replacing the temporary checkpoint page
     - Replace the throwaway page from Task 6 with the real dashboard entry point
     - Import `data/accounts.json` as `unknown`; run `validateAccounts` before any computation
     - Derive each account's absolute `lastUpdated` date from `now − lastUpdatedDaysAgo days` at this boundary before calling `computeFreshness`
