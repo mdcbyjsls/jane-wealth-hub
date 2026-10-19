@@ -228,7 +228,7 @@ implementation tasks are never optional.
     - Page container with heading structure and landmarks; defined document order of sections
     - _Requirements: 9.2_
 
-  - [ ] 17.2 Implement `components/layout/DashboardClient.tsx` (client island)
+  - [x] 17.2 Implement `components/layout/DashboardClient.tsx` (client island)
     - Read/write target via `Target_Store`; recompute `computeDrift`/`classifyDrift`/`computeOnTrackStatus` when the target changes; manage target-editor validation state
     - Manage the loading state for first paint / target read
     - _Requirements: 4.1, 5.4, 5.5, 5.6, 6.1_
