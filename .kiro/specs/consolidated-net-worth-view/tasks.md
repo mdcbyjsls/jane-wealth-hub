@@ -148,7 +148,7 @@ implementation tasks are never optional.
     - **Validates: Requirements 4.3, 4.4, 4.5**
 
 - [ ] 10. Implement data freshness
-  - [ ] 10.1 Implement `computeFreshness(accounts, now): FreshnessResult`
+  - [x] 10.1 Implement `computeFreshness(accounts, now): FreshnessResult`
     - The boundary (server component / loader) derives each account's absolute `lastUpdated` date from `now − lastUpdatedDaysAgo days` and passes the derived dates (or days-ago plus `now`) into the function along with `now`; `computeFreshness` stays pure and never reads the clock
     - Per institution, `asOf` = most recent derived `lastUpdated` among member accounts
     - Flag an account stale when its derived `lastUpdated` is strictly more than 3 days before `now` (exactly 3 days is not stale); institution stale if any member is stale

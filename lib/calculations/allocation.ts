@@ -23,6 +23,8 @@ import type {
   DriftClassification,
   DriftDirection,
   DriftResult,
+  FreshnessResult,
+  InstitutionFreshness,
   InstitutionGroup,
   NetWorthResult,
   OnTrackStatus,
@@ -812,4 +814,89 @@ export function computeOnTrackStatus(drift: DriftResult): OnTrackStatus {
   const largestDriftSentence = `${className} are ${points} ${pointWord} ${directionWord} your target, about ${dollars}`;
 
   return { onTrack: false, label, largestDriftSentence };
+}
+
+// ---------------------------------------------------------------------------
+// computeFreshness (R8.1, R8.2, R8.3)
+// ---------------------------------------------------------------------------
+
+/** Freshness_Threshold in days: an account is stale when strictly more than this many days old. */
+const FRESHNESS_THRESHOLD_DAYS = 3;
+
+/** Milliseconds in one day, used to derive each account's absolute `lastUpdated` from `now`. */
+const MS_PER_DAY = 24 * 60 * 60 * 1000;
+
+/**
+ * Evaluates per-institution data freshness for validated accounts (R8.1–R8.3).
+ *
+ * The `Account` model stores freshness as a relative `lastUpdatedDaysAgo` offset rather than an
+ * absolute date, so the sample data never decays into looking stale as real time passes (see the
+ * `lastUpdatedDaysAgo` design note). This function derives each account's absolute `lastUpdated`
+ * date INTERNALLY as `now − lastUpdatedDaysAgo days`. That keeps it pure and deterministic: `now`
+ * is a passed-in input, the clock is never read here, and nothing is fetched. Given the same
+ * `accounts` and the same `now`, the output is always identical.
+ *
+ * Grouping mirrors `computeInstitutionGroups`: accounts are grouped CASE-INSENSITIVELY on the
+ * lowercased institution name, and each group's displayed `institution` is the FIRST-seen account's
+ * original casing — a deterministic representative that never invents a cased form the data did not
+ * contain. A `Map` keyed on the lowercased name preserves first-insertion order, so institutions
+ * appear in input order (ordering for display is handled by `computeInstitutionGroups`; this
+ * function reports freshness, not display order).
+ *
+ * Per institution (R8.1, R8.2): `asOf` is the MOST RECENT derived `lastUpdated` among the group's
+ * accounts — equivalently the account with the SMALLEST `lastUpdatedDaysAgo`. Because larger offsets
+ * map to earlier dates, "most recent date" and "smallest offset" pick the same account.
+ *
+ * Staleness (R8.3): an account is stale IFF its derived date is strictly MORE than the 3-day
+ * Freshness_Threshold before `now` — equivalently `lastUpdatedDaysAgo > 3`. Exactly 3 days is NOT
+ * stale; only 4 or more is. An institution is stale IFF ANY member account is stale.
+ *
+ * An empty account set yields an empty `byInstitution` array.
+ *
+ * Pure and deterministic: inputs in, result out — no fetch, no `localStorage`, no clock read.
+ */
+export function computeFreshness(accounts: Account[], now: Date): FreshnessResult {
+  const nowMs = now.getTime();
+
+  // Accumulate per institution, keyed on the lowercased name for case-insensitive grouping. A Map
+  // preserves first-insertion order and the first-seen display name, matching computeInstitutionGroups.
+  interface FreshnessAccumulator {
+    institution: string; // first-seen original casing
+    asOfMs: number;      // largest (most recent) derived timestamp seen so far
+    isStale: boolean;    // true once any member account is stale
+  }
+
+  const byKey = new Map<string, FreshnessAccumulator>();
+
+  for (const account of accounts) {
+    // Derive the absolute lastUpdated date from `now − lastUpdatedDaysAgo days`. This stays pure
+    // because `now` is an input; the offset is a non-negative integer (guaranteed by validation).
+    const lastUpdatedMs = nowMs - account.lastUpdatedDaysAgo * MS_PER_DAY;
+    const accountStale = account.lastUpdatedDaysAgo > FRESHNESS_THRESHOLD_DAYS;
+
+    const key = account.institution.toLowerCase();
+    const existing = byKey.get(key);
+    if (existing === undefined) {
+      byKey.set(key, {
+        institution: account.institution,
+        asOfMs: lastUpdatedMs,
+        isStale: accountStale,
+      });
+    } else {
+      // Keep the most recent (largest timestamp) as the "as of" date (R8.2).
+      if (lastUpdatedMs > existing.asOfMs) {
+        existing.asOfMs = lastUpdatedMs;
+      }
+      // Institution is stale if any member is stale (R8.3).
+      existing.isStale = existing.isStale || accountStale;
+    }
+  }
+
+  const byInstitution: InstitutionFreshness[] = [...byKey.values()].map((group) => ({
+    institution: group.institution,
+    asOf: new Date(group.asOfMs),
+    isStale: group.isStale,
+  }));
+
+  return { byInstitution };
 }
