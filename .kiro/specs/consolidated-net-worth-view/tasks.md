@@ -95,13 +95,13 @@ implementation tasks are never optional.
     - Handle sizes 0 and 1
     - _Requirements: 2.2, 2.3, 2.4, 2.5, 2.6_
 
-- [ ] 6. Early integration checkpoint - render real data unstyled
+- [x] 6. Early integration checkpoint - render real data unstyled
   - Create a **temporary** `app/page.tsx` that imports the real `data/accounts.json`, runs `validateAccounts`, and on success renders the total net worth (`computeNetWorth`) and the institution list with subtotals (`computeInstitutionGroups`) using minimal or no styling
   - Purpose: surface data-shape, import, and aggregation integration issues early, against real sample data, before any proper UI exists
   - This is a throwaway integration checkpoint: the temporary page is replaced later by the proper UI (the `NetWorthHeader`/`InstitutionList` components and the dashboard-shell wiring tasks). Do not build out styling or states here
   - _Requirements: R1, R2_
 
-- [ ] 7. Checkpoint - Ensure all tests pass
+- [x] 7. Checkpoint - Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 - [x] 8. Implement asset allocation
@@ -158,7 +158,7 @@ implementation tasks are never optional.
     - Boundary expressed in days-ago: 3 days ago (not stale) vs 4 days ago (stale); differing days-ago values within one institution resolve `asOf` to the most recent
     - _Requirements: 8.2, 8.3_
 
-- [ ] 11. Checkpoint - Ensure all tests pass
+- [x] 11. Checkpoint - Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 - [x] 12. Implement the Target_Store (localStorage)
