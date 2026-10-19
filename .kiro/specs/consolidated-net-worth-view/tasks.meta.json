@@ -488,6 +488,68 @@
         "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
         "timestamp": 1792436317881
       }
+    ],
+    "8.3 Write unit tests for `computeActualAllocation`": [
+      {
+        "executionId": "3c76c93f-8184-4a92-a2fb-220a2f22d5d3",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792438871428
+      },
+      {
+        "executionId": "3c76c93f-8184-4a92-a2fb-220a2f22d5d3",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792438993925
+      }
+    ],
+    "9.4 Write unit tests for drift and status functions": [
+      {
+        "executionId": "3c76c93f-8184-4a92-a2fb-220a2f22d5d3",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792438872948
+      },
+      {
+        "executionId": "3c76c93f-8184-4a92-a2fb-220a2f22d5d3",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792438995263
+      }
+    ],
+    "9.5 Write property test for drift classification": [
+      {
+        "executionId": "3c76c93f-8184-4a92-a2fb-220a2f22d5d3",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792438873751
+      },
+      {
+        "executionId": "3c76c93f-8184-4a92-a2fb-220a2f22d5d3",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792438996228
+      }
+    ],
+    "10.2 Write unit tests for `computeFreshness`": [
+      {
+        "executionId": "3c76c93f-8184-4a92-a2fb-220a2f22d5d3",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792438874647
+      },
+      {
+        "executionId": "3c76c93f-8184-4a92-a2fb-220a2f22d5d3",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792438997311
+      }
+    ],
+    "9. Implement drift and on-track status": [
+      {
+        "executionId": "3c76c93f-8184-4a92-a2fb-220a2f22d5d3",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792438996267
+      }
+    ],
+    "10. Implement data freshness": [
+      {
+        "executionId": "3c76c93f-8184-4a92-a2fb-220a2f22d5d3",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792438997365
+      }
     ]
   }
 }

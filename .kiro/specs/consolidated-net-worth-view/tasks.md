@@ -116,7 +116,7 @@ implementation tasks are never optional.
     - When total asset value is 0, set all four percentages to 0 and set `isZeroTotal` true (no division by zero)
     - _Requirements: 3.2, 3.3, 3.4, 6.5_
 
-  - [ ] 8.3 Write unit tests for `computeActualAllocation`
+  - [x] 8.3 Write unit tests for `computeActualAllocation`
     - Zero-total path (all 0); a case where naive rounding sums to 99.9/100.1 and residual is assigned to the largest unrounded class
     - _Requirements: 3.3, 3.4_
 
@@ -124,7 +124,7 @@ implementation tasks are never optional.
     - **Property 5: Actual allocation percentages sum to exactly 100 (or all zero)**
     - **Validates: Requirements 3.2, 3.3, 3.4, 6.5**
 
-- [ ] 9. Implement drift and on-track status
+- [x] 9. Implement drift and on-track status
   - [x] 9.1 Implement `computeDrift(actual, totals, target): DriftResult`
     - Per class: `driftPoints = actual% - target%`; `driftDollars = actual$ - (target%/100 * totalAssetValue)`
     - Populate `byClass`, `offTargetCount`, and `largest` (largest absolute point drift when off target, else null)
@@ -139,22 +139,22 @@ implementation tasks are never optional.
     - Build the plain-language largest-drift sentence (direction, point magnitude, approximate dollars); null when fully on track
     - _Requirements: 4.6, 4.7, 4.8, 4.9_
 
-  - [ ] 9.4 Write unit tests for drift and status functions
+  - [x] 9.4 Write unit tests for drift and status functions
     - Drift at exactly +5 and -5 (on track boundary); fully on-track vs mixed off-target; largest-drift sentence wording
     - _Requirements: 4.3, 4.4, 4.5, 4.7, 4.8, 4.9_
 
-  - [ ] 9.5 Write property test for drift classification
+  - [x] 9.5 Write property test for drift classification
     - **Property 8: Drift classification follows the ±5 threshold**
     - **Validates: Requirements 4.3, 4.4, 4.5**
 
-- [ ] 10. Implement data freshness
+- [x] 10. Implement data freshness
   - [x] 10.1 Implement `computeFreshness(accounts, now): FreshnessResult`
     - The boundary (server component / loader) derives each account's absolute `lastUpdated` date from `now − lastUpdatedDaysAgo days` and passes the derived dates (or days-ago plus `now`) into the function along with `now`; `computeFreshness` stays pure and never reads the clock
     - Per institution, `asOf` = most recent derived `lastUpdated` among member accounts
     - Flag an account stale when its derived `lastUpdated` is strictly more than 3 days before `now` (exactly 3 days is not stale); institution stale if any member is stale
     - _Requirements: 8.1, 8.2, 8.3_
 
-  - [ ] 10.2 Write unit tests for `computeFreshness`
+  - [x] 10.2 Write unit tests for `computeFreshness`
     - Boundary expressed in days-ago: 3 days ago (not stale) vs 4 days ago (stale); differing days-ago values within one institution resolve `asOf` to the most recent
     - _Requirements: 8.2, 8.3_
 
