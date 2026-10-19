@@ -33,9 +33,25 @@ export function DashboardShell({
 }: DashboardShellProps) {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
+      {/*
+        Skip-to-content link (R9.2): the first focusable element on the page, so
+        a keyboard user can jump past any future chrome straight to the main
+        landmark. It is visually hidden until focused (sr-only + focus:not-sr-only),
+        then shows a high-contrast focus-visible ring (R9.3). The matching
+        tabIndex={-1} on <main> lets the target receive focus on activation.
+        Final focus-indicator contrast (≥ 3:1) still requires a manual audit
+        per Task 18/19.
+      */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-sky-700 focus:shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-600 focus-visible:ring-offset-2"
+      >
+        Skip to main content
+      </a>
       <main
         id="main-content"
-        className="mx-auto w-full max-w-5xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8"
+        tabIndex={-1}
+        className="mx-auto w-full max-w-5xl px-4 py-8 focus:outline-none sm:px-6 sm:py-10 lg:px-8"
       >
         <header className="mb-8 flex flex-col gap-2">
           <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">

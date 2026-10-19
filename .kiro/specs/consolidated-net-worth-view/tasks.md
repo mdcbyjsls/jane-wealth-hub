@@ -244,14 +244,14 @@ implementation tasks are never optional.
     - Catch unexpected faults and render the same plain-language LoadError copy (no stack trace or blank screen)
     - _Requirements: 6.2, 6.6_
 
-- [ ] 18. Accessibility wiring pass
-  - [ ] 18.1 Apply accessibility attributes and focus handling across components
+- [x] 18. Accessibility wiring pass
+  - [x] 18.1 Apply accessibility attributes and focus handling across components
     - Ensure all target inputs are reachable via sequential Tab in a defined order and operable by keyboard
     - Ensure validation messages are announced on focus via `aria-describedby` and retained until removed
     - Apply design tokens for a visible focus indicator and text/control contrast
     - _Requirements: 9.2, 9.3, 9.4, 9.5_
 
-- [ ] 19. Final checkpoint - Ensure all tests pass
+- [x] 19. Final checkpoint - Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
   - Note: R9.3 (focus indicator ≥ 3:1) and R9.5 (text/control contrast ≥ 4.5:1) are enforced at the design-token level and require manual contrast-tool audit; they cannot be fully validated by automated tests.
 

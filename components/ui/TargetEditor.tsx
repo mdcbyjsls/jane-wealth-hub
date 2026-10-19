@@ -170,8 +170,17 @@ export default function TargetEditor({
                     value={input[key]}
                     onChange={(e) => handleChange(key, e.target.value)}
                     aria-invalid={isOffending || undefined}
+                    // R9.4: when this field is the offending one (or the error
+                    // is the form-level sum), it points at the shared live-region
+                    // message via aria-describedby, so assistive tech announces
+                    // the message when the input receives focus, and the
+                    // association is retained until the next valid submit clears it.
                     aria-describedby={describedBy}
-                    className="w-20 rounded-md border border-gray-300 px-2 py-1 text-right text-sm tabular-nums focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500"
+                    // R9.3: an always-on focus ring (focus:, not focus-visible:)
+                    // so keyboard focus is unmistakable on these number inputs.
+                    // Ring contrast (≥ 3:1) is a design-token concern and still
+                    // needs a manual audit per Task 18/19.
+                    className="w-20 rounded-md border border-gray-300 px-2 py-1 text-right text-sm tabular-nums focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
                   />
                   <span aria-hidden="true" className="text-sm text-gray-600">
                     %

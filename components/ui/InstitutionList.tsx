@@ -93,7 +93,13 @@ export function InstitutionList({
                       <span className="font-medium text-gray-900">
                         {account.institution}
                       </span>{' '}
-                      <span className="text-gray-500">
+                      {/*
+                        R9.5: account type is meaningful text, so it must clear
+                        4.5:1 against the white card. text-gray-600 (#4b5563)
+                        does; text-gray-500 (#6b7280) is borderline (~4:1).
+                        Final contrast still requires a manual audit per Task 18/19.
+                      */}
+                      <span className="text-gray-600">
                         {account.accountType}
                       </span>
                     </span>
