@@ -1,0 +1,15 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "AI collaboration log",
+      "trigger": "Stop",
+      "action": {
+        "type": "agent",
+        "prompt": "First, run date \"+%Y-%m-%d %H:%M\" in the terminal to get the current local time. Then append an entry to docs/ai-log/session-log.md (create the file and folder if missing). Format:\n\n## [YYYY-MM-DD HH:MM] Short title of what happened\n- **Prompt:** my most recent prompt, verbatim\n- **What Kiro did:** 2–4 sentences\n- **Files changed:** list of files created or modified\n- **Decisions:** any decision made or alternative rejected, and why (write \"None\" if none)\n- **Open questions:** anything unresolved (write \"None\" if none)\n\nOnly append. Never edit or delete earlier entries. Do not log this logging action itself, and do not change any other files."
+      },
+      "description": "Appends a timestamped entry to docs/ai-log/session-log.md after every agent response, capturing my prompt, what Kiro did, files changed, and decisions, so reviewers can follow the development process as it happened.",
+      "enabled": true
+    }
+  ]
+}
