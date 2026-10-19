@@ -196,21 +196,21 @@ implementation tasks are never optional.
     - `FreshnessBadge` shows "as of [date]" and a "may be out of date" cue when stale (non-color indicator, not color alone)
     - _Requirements: 8.1, 8.3, 9.6_
 
-- [ ] 15. Build net worth and institution UI
+- [x] 15. Build net worth and institution UI
   - [x] 15.1 Implement `components/ui/NetWorthHeader.tsx`
     - Three labeled values (total assets, total liabilities, net worth) formatted via the currency helper; negative net worth with a minus sign
     - _Requirements: 1.2, 1.3, 1.4_
 
-  - [ ] 15.2 Implement `components/ui/InstitutionList.tsx`
+  - [x] 15.2 Implement `components/ui/InstitutionList.tsx`
     - Render institution groups in calculator order; each shows subtotal, member accounts (institution name, type, balance), and a `FreshnessBadge`
     - _Requirements: 2.1, 2.3, 2.4, 8.1, 8.2_
 
 - [ ] 16. Build allocation and target UI
-  - [ ] 16.1 Implement `components/charts/AllocationPie.tsx`
+  - [x] 16.1 Implement `components/charts/AllocationPie.tsx`
     - Recharts pie of the four classes plus a programmatically associated text alternative listing each class name with its one-decimal percentage
     - _Requirements: 3.5, 9.1_
 
-  - [ ] 16.2 Implement `components/ui/OnTrackBanner.tsx`
+  - [x] 16.2 Implement `components/ui/OnTrackBanner.tsx`
     - Single status banner: "On track" or "N of 4 asset classes off target" plus the largest-drift sentence
     - _Requirements: 4.6, 4.7, 4.8, 4.9_
 
