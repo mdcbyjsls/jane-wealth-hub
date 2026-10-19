@@ -460,6 +460,16 @@
         "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
         "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
         "timestamp": 1792434886239
+      },
+      {
+        "executionId": "3c76c93f-8184-4a92-a2fb-220a2f22d5d3",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792440146569
+      },
+      {
+        "executionId": "3c76c93f-8184-4a92-a2fb-220a2f22d5d3",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792440330865
       }
     ],
     "16.4 Implement `components/ui/TargetEditor.tsx`": [
@@ -467,6 +477,16 @@
         "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
         "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
         "timestamp": 1792434886268
+      },
+      {
+        "executionId": "3c76c93f-8184-4a92-a2fb-220a2f22d5d3",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792440147413
+      },
+      {
+        "executionId": "3c76c93f-8184-4a92-a2fb-220a2f22d5d3",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792440332129
       }
     ],
     "17.1 Implement `components/layout/DashboardShell.tsx`": [
@@ -474,6 +494,16 @@
         "executionId": "7c3f6323-b480-4c66-b5a1-18df6b556091",
         "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
         "timestamp": 1792434886298
+      },
+      {
+        "executionId": "3c76c93f-8184-4a92-a2fb-220a2f22d5d3",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792440148670
+      },
+      {
+        "executionId": "3c76c93f-8184-4a92-a2fb-220a2f22d5d3",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792440333104
       }
     ],
     "17.2 Implement `components/layout/DashboardClient.tsx` (client island)": [
@@ -663,6 +693,13 @@
         "executionId": "3c76c93f-8184-4a92-a2fb-220a2f22d5d3",
         "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
         "timestamp": 1792440123379
+      }
+    ],
+    "16. Build allocation and target UI": [
+      {
+        "executionId": "3c76c93f-8184-4a92-a2fb-220a2f22d5d3",
+        "chatSessionId": "sess_8c799506-3dea-4d75-8607-a6199ce10899",
+        "timestamp": 1792440332184
       }
     ]
   }

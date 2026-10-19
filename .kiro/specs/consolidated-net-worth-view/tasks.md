@@ -205,7 +205,7 @@ implementation tasks are never optional.
     - Render institution groups in calculator order; each shows subtotal, member accounts (institution name, type, balance), and a `FreshnessBadge`
     - _Requirements: 2.1, 2.3, 2.4, 8.1, 8.2_
 
-- [ ] 16. Build allocation and target UI
+- [x] 16. Build allocation and target UI
   - [x] 16.1 Implement `components/charts/AllocationPie.tsx`
     - Recharts pie of the four classes plus a programmatically associated text alternative listing each class name with its one-decimal percentage
     - _Requirements: 3.5, 9.1_
@@ -214,17 +214,17 @@ implementation tasks are never optional.
     - Single status banner: "On track" or "N of 4 asset classes off target" plus the largest-drift sentence
     - _Requirements: 4.6, 4.7, 4.8, 4.9_
 
-  - [ ] 16.3 Implement `components/ui/AllocationSection.tsx`
+  - [x] 16.3 Implement `components/ui/AllocationSection.tsx`
     - Compose `OnTrackBanner`, `AllocationPie`, and per-class rows showing actual %, target %, and drift in points and dollars with a non-color direction/magnitude indicator
     - _Requirements: 3.5, 4.2, 4.6, 9.6_
 
-  - [ ] 16.4 Implement `components/ui/TargetEditor.tsx`
+  - [x] 16.4 Implement `components/ui/TargetEditor.tsx`
     - Four integer inputs; inline validation via `validateTarget`; reject invalid submissions while retaining entered values; associate validation messages via `aria-describedby`
     - Side-by-side actual-vs-target display per class; label default target "Example target, set your own"
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.7, 9.2, 9.4_
 
 - [ ] 17. Assemble the dashboard shell and state machine
-  - [ ] 17.1 Implement `components/layout/DashboardShell.tsx`
+  - [x] 17.1 Implement `components/layout/DashboardShell.tsx`
     - Page container with heading structure and landmarks; defined document order of sections
     - _Requirements: 9.2_
 
