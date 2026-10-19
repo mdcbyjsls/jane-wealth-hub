@@ -240,7 +240,7 @@ implementation tasks are never optional.
     - Route to one of the five states (Loading, LoadError, ValidationError, Empty, Ready); compute target-independent values (net worth, groups, allocation, freshness) on the server and pass serializable props to `DashboardClient`
     - _Requirements: 3.7, 6.1, 6.2, 6.3, 6.4, 6.5, 7.1, 8.1, 8.2, 8.3_
 
-  - [ ] 17.4 Add a React error boundary around the dashboard
+  - [x] 17.4 Add a React error boundary around the dashboard
     - Catch unexpected faults and render the same plain-language LoadError copy (no stack trace or blank screen)
     - _Requirements: 6.2, 6.6_
 
