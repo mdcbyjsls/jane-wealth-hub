@@ -179,25 +179,25 @@ implementation tasks are never optional.
     - One-decimal percentage formatter (e.g., "42.5 percent") for the pie text alternative
     - _Requirements: 1.2, 1.4, 9.1_
 
-- [ ] 14. Build UI primitive and state components
-  - [ ] 14.1 Implement `components/ui/LoadingSkeleton.tsx`
+- [x] 14. Build UI primitive and state components
+  - [x] 14.1 Implement `components/ui/LoadingSkeleton.tsx`
     - Skeleton placeholders for net worth, breakdown, and allocation sections; suppress any values
     - _Requirements: 6.1_
 
-  - [ ] 14.2 Implement `components/ui/ErrorState.tsx`
+  - [x] 14.2 Implement `components/ui/ErrorState.tsx`
     - Render plain-language copy from the message module for LoadError and ValidationError; show no net worth, breakdown, or allocation values
     - _Requirements: 1.5, 3.7, 6.2, 6.3, 6.6_
 
-  - [ ] 14.3 Implement `components/ui/EmptyState.tsx`
+  - [x] 14.3 Implement `components/ui/EmptyState.tsx`
     - Zero-accounts and all-zero-balances messaging with net worth $0; plain language with a next action
     - _Requirements: 6.4, 6.5, 6.6_
 
-  - [ ] 14.4 Implement `components/ui/StaleDataBanner.tsx` and `components/ui/FreshnessBadge.tsx`
+  - [x] 14.4 Implement `components/ui/StaleDataBanner.tsx` and `components/ui/FreshnessBadge.tsx`
     - `FreshnessBadge` shows "as of [date]" and a "may be out of date" cue when stale (non-color indicator, not color alone)
     - _Requirements: 8.1, 8.3, 9.6_
 
 - [ ] 15. Build net worth and institution UI
-  - [ ] 15.1 Implement `components/ui/NetWorthHeader.tsx`
+  - [x] 15.1 Implement `components/ui/NetWorthHeader.tsx`
     - Three labeled values (total assets, total liabilities, net worth) formatted via the currency helper; negative net worth with a minus sign
     - _Requirements: 1.2, 1.3, 1.4_
 
