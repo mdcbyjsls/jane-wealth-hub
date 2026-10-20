@@ -60,19 +60,31 @@ import type {
   ComparisonBands,
   ComparisonResult,
   PathBands,
+  VerdictFigures,
+  Year10Composition,
 } from '@/types/buyVsRent';
 import {
   ASSET_CLASS_KEYS,
+  buildBands,
   computeComparison,
+  computeVerdict,
+  findBreakevenYear,
 } from '@/lib/calculations/buyVsRent';
+import { computeYear10Composition } from '@/lib/calculations/composition';
+import { computeTornado } from '@/lib/calculations/sensitivityTornado';
 import { DEFAULT_SCENARIO_MULTIPLIERS } from '@/lib/calculations/projection';
 import {
   BUY_VS_RENT_MESSAGES,
+  verdict as verdictSentence,
   cacheNote,
   snapshotBanner,
 } from '@/lib/buyVsRentMessages';
+import { formatCurrency } from '@/lib/format';
 
-import ComparisonChart from '@/components/charts/ComparisonChart';
+import TwoPathChart from '@/components/charts/TwoPathChart';
+import CompositionBars from '@/components/charts/CompositionBars';
+import SensitivityTornado from '@/components/charts/SensitivityTornado';
+import SliderStrip from '@/components/ui/SliderStrip';
 import BuyVsRentAssumptionPanel, {
   type EditableField,
 } from '@/components/ui/BuyVsRentAssumptionPanel';
@@ -289,6 +301,33 @@ function discountYear10(value: number, inflationRatePercent: number): number {
   return value / factor ** HORIZON;
 }
 
+/**
+ * Discount the year-10 Composition components to today's dollars (R10.3). Every
+ * segment is a year-10 figure, so each uses the same {@link discountYear10}
+ * factor the bands' year-10 values get — keeping Composition_Bars consistent
+ * with the Two_Path_Chart when today's dollars is active.
+ */
+function discountComposition(
+  composition: Year10Composition,
+  inflationRatePercent: number,
+): Year10Composition {
+  const d = (value: number) => discountYear10(value, inflationRatePercent);
+  const buyHomeEquity = d(composition.buy.homeEquity);
+  const buySideInvestments = d(composition.buy.sideInvestments);
+  const rentInvestments = d(composition.rent.investments);
+  return {
+    buy: {
+      homeEquity: buyHomeEquity,
+      sideInvestments: buySideInvestments,
+      total: buyHomeEquity + buySideInvestments,
+    },
+    rent: {
+      investments: rentInvestments,
+      total: rentInvestments,
+    },
+  };
+}
+
 /** Pull the year-10 base/optimistic/pessimistic figures for one path's bands. */
 function year10Figures(bands: PathBands): Year10PathFigures {
   return {
@@ -324,6 +363,13 @@ export default function BuyVsRentClient({
 
   // Dollar_Basis — nominal is the default on initial load (R10.1).
   const [dollarBasis, setDollarBasis] = useState<DollarBasis>('nominal');
+
+  // Return_Override (R5.5) — the island-level override for the expected-
+  // investment-return slider. `null` means "use the derived base return"
+  // (`comparison.investmentReturnPercent`); a number replaces that derived base
+  // return for the band/composition/tornado math on the next recompute. This is
+  // island-level wiring only: no calculator is modified. Cleared on Reset.
+  const [returnOverride, setReturnOverride] = useState<number | null>(null);
 
   // Fetch the resolved market data from the server-only route. A 2xx snapshot
   // → Ready with its dataSource; any error / !ok / network fault → RouteError
@@ -390,29 +436,117 @@ export default function BuyVsRentClient({
     });
   }, [marketState, assumptions, totals, allocation.percentages]);
 
+  // The Starting_Assets total — the single figure the pure band/composition/
+  // tornado helpers consume. Memoized so the override recompute below keys on a
+  // stable number rather than the ClassTotals object identity.
+  const startingAssetsTotal = useMemo(
+    () => ASSET_CLASS_KEYS.reduce((sum, key) => sum + totals[key], 0),
+    [totals],
+  );
+
+  // The EFFECTIVE base Investment_Return feeding every recompute: the active
+  // Return_Override if the user set one, otherwise the derived base return the
+  // calculator computed (R5.5). Null while the comparison is unavailable.
+  const effectiveReturn: number | null = useMemo(() => {
+    if (comparison === null) {
+      return null;
+    }
+    return returnOverride ?? comparison.investmentReturnPercent;
+  }, [comparison, returnOverride]);
+
+  // When an override is active, the derived `comparison` was computed with the
+  // CALCULATOR's base return, so its bands / breakeven / verdict are stale for
+  // the override. Recompute just those three from the exported pure helpers with
+  // the effective return — island-level wiring, no calculator change (R5.5). The
+  // basis-independent figures (drawdown, cushion, tipping point, the Spec 3
+  // sensitivity ranking) are unaffected by the return and keep coming from
+  // `comparison`. When no override is set this is `null` and the originals stand.
+  const overriddenCore = useMemo(() => {
+    if (
+      comparison === null ||
+      assumptions === null ||
+      effectiveReturn === null ||
+      returnOverride === null
+    ) {
+      return null;
+    }
+    const bands = buildBands(
+      assumptions,
+      startingAssetsTotal,
+      effectiveReturn,
+      assumptions.multipliers,
+    );
+    const verdict: VerdictFigures = computeVerdict(bands.buy.base, bands.rent.base);
+    const breakevenYear = findBreakevenYear(bands.buy.base, bands.rent.base);
+    return { bands, verdict, breakevenYear };
+  }, [comparison, assumptions, effectiveReturn, returnOverride, startingAssetsTotal]);
+
+  // The bands / verdict / breakeven the view renders: the override recompute when
+  // one is active, else the calculator's own figures.
+  const effectiveBands: ComparisonBands | null =
+    overriddenCore?.bands ?? comparison?.bands ?? null;
+  const effectiveVerdict: VerdictFigures | null =
+    overriddenCore?.verdict ?? comparison?.verdict ?? null;
+  const effectiveBreakevenYear: number | null =
+    overriddenCore?.breakevenYear ?? comparison?.breakevenYear ?? null;
+
+  // The year-10 Composition for the Composition_Bars (R5.6), computed from the
+  // same inputs the bands use — including the effective base return — so the
+  // Buy/Rent totals match the Two_Path_Chart. Nominal here; the display memo
+  // applies the active Dollar_Basis discount below.
+  const composition: Year10Composition | null = useMemo(() => {
+    if (assumptions === null || effectiveReturn === null) {
+      return null;
+    }
+    return computeYear10Composition(assumptions, startingAssetsTotal, effectiveReturn);
+  }, [assumptions, startingAssetsTotal, effectiveReturn]);
+
+  // The two-sided Sensitivity_Tornado entries (R5.7), already sorted by swing by
+  // `computeTornado`. Keyed on the same inputs as the bands so it recomputes live
+  // on every slider/panel change. Basis-independent (it ranks dollar SWINGS), so
+  // it is not discounted.
+  const tornadoEntries = useMemo(() => {
+    if (assumptions === null || effectiveReturn === null) {
+      return [];
+    }
+    return computeTornado(
+      assumptions,
+      startingAssetsTotal,
+      effectiveReturn,
+      assumptions.multipliers,
+    );
+  }, [assumptions, startingAssetsTotal, effectiveReturn]);
+
   // The display-basis view of the comparison. On `today` the band series and the
   // verdict/cushion dollar figures are discounted; the drawdown allocation
   // percentages and the tipping-point rate are basis-independent (R10.3).
   const display = useMemo(() => {
-    if (comparison === null) {
+    if (
+      comparison === null ||
+      effectiveBands === null ||
+      effectiveVerdict === null ||
+      composition === null
+    ) {
       return null;
     }
     if (effectiveBasis !== 'today') {
       return {
-        bands: comparison.bands,
-        verdictGap: comparison.verdict.year10Difference,
+        bands: effectiveBands,
+        verdictGap: effectiveVerdict.year10Difference,
         cashCushion: comparison.drawdown.cashCushion,
         cushionThreshold: comparison.cushionThreshold,
+        composition,
       };
     }
     const infl = DEFAULT_INFLATION_RATE;
     return {
-      bands: discountBands(comparison.bands, infl),
-      verdictGap: discountYear10(comparison.verdict.year10Difference, infl),
+      bands: discountBands(effectiveBands, infl),
+      verdictGap: discountYear10(effectiveVerdict.year10Difference, infl),
       cashCushion: discountYear10(comparison.drawdown.cashCushion, infl),
       cushionThreshold: discountYear10(comparison.cushionThreshold, infl),
+      composition: discountComposition(composition, infl),
     };
-  }, [comparison, effectiveBasis]);
+  }, [comparison, effectiveBands, effectiveVerdict, composition, effectiveBasis]);
 
   // Commit a single valid assumption edit from the panel (R9.3).
   const handleChange = useCallback((field: EditableField, value: number): void => {
@@ -436,10 +570,28 @@ export default function BuyVsRentClient({
     if (marketState.status === 'ready') {
       setAssumptions(seedAssumptions(marketState.snapshot));
     }
+    // Clearing the Return_Override drops the expected-investment-return slider
+    // back to the derived base return (R5.5).
+    setReturnOverride(null);
   }, [marketState]);
 
   // The active-basis label used in the chart's text alternative (R10.3).
   const basisLabel = effectiveBasis === 'today' ? "today's dollars" : 'future dollars';
+
+  // The one-sentence Verdict headline shown above the chart (R5.1): which path
+  // ends ahead at year 10 and the dollar gap, in the active Dollar_Basis. The
+  // 'tie' leader is phrased explicitly since the shared `verdict()` copy only
+  // names a winning path; this mirrors VerdictCard's own tie handling so the
+  // headline and the detail card never disagree.
+  const verdictHeadline =
+    effectiveVerdict === null || display === null
+      ? null
+      : effectiveVerdict.leader === 'tie'
+        ? 'Buying and renting come out about even at year 10.'
+        : verdictSentence(
+            effectiveVerdict.leader,
+            formatCurrency(display.verdictGap),
+          );
 
   return (
     <div className={`flex flex-col gap-8 ${className ?? ''}`}>
@@ -495,30 +647,84 @@ export default function BuyVsRentClient({
             </p>
           ) : null}
 
+          {/*
+            THE HERO (R5.1, R8.1, R8.2). The verdict headline, the live slider
+            strip, and the full-width Two_Path_Chart stack full width at every
+            breakpoint — they are the one thing this view answers at a glance —
+            followed by the Composition_Bars and the Sensitivity_Tornado. The
+            supporting detail cards sit below in a responsive two-column (wide) /
+            one-column (phone) grid.
+          */}
+
+          {/* 1. The one-sentence Verdict headline, above the chart (R5.1). The
+              largest thing in the hero, in the active Dollar_Basis. */}
+          {verdictHeadline !== null ? (
+            <p
+              aria-label="Verdict"
+              className="text-2xl font-semibold text-slate-900 tabular-nums"
+            >
+              {verdictHeadline}
+            </p>
+          ) : null}
+
+          {/* 2. The live "biggest drivers" slider strip, directly above the chart
+              (R5.3, R5.4). The two panel-backed sliders bind to the single
+              `assumptions` state via `handleChange`; the expected-return slider
+              reads the effective return and sets the island-level
+              Return_Override (R5.5). Full width (R8.2). */}
+          {effectiveReturn !== null ? (
+            <SliderStrip
+              values={assumptions}
+              onChange={handleChange}
+              returnValue={effectiveReturn}
+              onReturnChange={setReturnOverride}
+              market={marketState.snapshot}
+            />
+          ) : null}
+
+          {/* 3. The full-width Two_Path_Chart: Buy + Rent bands with a non-color
+              path cue and a labeled breakeven marker (R5.2). Uses the effective
+              breakeven so the override is reflected live. */}
+          <TwoPathChart
+            bands={display.bands}
+            breakevenYear={effectiveBreakevenYear}
+            basisLabel={basisLabel}
+          />
+
+          {/* 4. Year-10 Composition_Bars (R5.6), discounted to the active basis
+              exactly like the bands so the stacks match the chart's year-10
+              values. */}
+          <CompositionBars
+            composition={display.composition}
+            basisLabel={basisLabel}
+          />
+
+          {/* 5. The Sensitivity_Tornado (R5.7): the top drivers of the year-10
+              gap, already sorted by swing. Basis-independent. */}
+          <SensitivityTornado entries={tornadoEntries} />
+
+          {/* ----- Supporting detail cards below the hero ----- */}
+
           {/* Year-10 call-outs as labeled ranges, in the active basis (R4.3, R4.4, R5.5). */}
           <BuyVsRentComparisonSummary
             buy={year10Figures(display.bands.buy)}
             rent={year10Figures(display.bands.rent)}
           />
 
-          {/* The band chart: Buy + Rent bands with a non-color path cue (R5.4, R13). */}
-          <ComparisonChart
-            bands={display.bands}
-            breakevenYear={comparison.breakevenYear}
-            basisLabel={basisLabel}
-          />
-
-          {/* The plain-language verdict, breakeven, and tipping point (R6, R7). */}
+          {/* The plain-language verdict, breakeven, and tipping point (R6, R7).
+              The verdict/breakeven reflect the effective return; the tipping
+              point is the derived-return reference from the calculator. */}
           <VerdictCard
             verdictFigures={{
-              leader: comparison.verdict.leader,
+              leader: effectiveVerdict?.leader ?? comparison.verdict.leader,
               year10Difference: display.verdictGap,
             }}
-            breakevenYear={comparison.breakevenYear}
+            breakevenYear={effectiveBreakevenYear}
             tippingPointPercent={comparison.tippingPointPercent}
           />
 
-          {/* Two-column card grid for the supporting detail (calm card ui-style). */}
+          {/* Two-column (wide) / one-column (phone) card grid for the supporting
+              detail (R8.2, calm card ui-style). */}
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             {/* The one or two most influential assumptions (R8.3). */}
             <SensitivityCard ranking={comparison.sensitivity} />

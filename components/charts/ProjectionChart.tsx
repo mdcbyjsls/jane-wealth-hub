@@ -12,6 +12,7 @@ import {
 
 import type { ProjectedPoint, ScenarioSeries } from '@/types/market';
 import { formatCurrency, formatPercent } from '@/lib/format';
+import { SERIES } from '@/lib/chartColors';
 
 /**
  * Band chart of a long-term wealth projection plus a programmatically
@@ -63,11 +64,15 @@ const SCENARIO_LABELS: Record<ScenarioKey, string> = {
  */
 type SeriesKind = 'current' | 'target';
 
-/** Line/area colors. These are a visual aid only; shape + text carry meaning. */
-const CURRENT_COLOR = '#0f1e3d'; // deep navy (primary)
-const CURRENT_BAND = '#c7d2e8'; // light navy tint for the band fill
-const TARGET_COLOR = '#0d94ae'; // teal
-const TARGET_BAND = '#cdeaf0'; // light teal tint for the band fill
+/**
+ * Line/area colors, drawn from the shared color module (`@/lib/chartColors`)
+ * so Current/Target use the same navy/teal as Buy/Rent everywhere. These are a
+ * visual aid only; shape (solid vs dashed) + text carry meaning (R7.4).
+ */
+const CURRENT_COLOR = SERIES.primary; // navy (Current)
+const CURRENT_BAND = SERIES.primaryBand; // navy band tint
+const TARGET_COLOR = SERIES.secondary; // teal (Target)
+const TARGET_BAND = SERIES.secondaryBand; // teal band tint
 
 export interface ProjectionChartProps {
   /** The current-allocation scenario series (base/optimistic/pessimistic). */

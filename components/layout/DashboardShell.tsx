@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import PrimaryNav from "./PrimaryNav";
 
 /**
  * Presentational layout container for the dashboard (R9.2).
@@ -48,6 +49,7 @@ export function DashboardShell({
       >
         Skip to main content
       </a>
+      <PrimaryNav />
       <main
         id="main-content"
         tabIndex={-1}

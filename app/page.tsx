@@ -31,8 +31,12 @@
  * Serialization boundary: `computeFreshness` produces `Date` objects. Those cross
  * into `InstitutionList`, which renders on the SERVER (not inside the client
  * island), so the Dates never have to serialize across the server→client bridge.
- * Only `allocation` and `totals` (plain numbers, no Dates) are passed into
- * `DashboardClient`, keeping that boundary cleanly serializable — keep it that way.
+ * Only `allocation`, `totals`, and the `waterfallSteps` (all plain numbers, no
+ * Dates) are passed into `DashboardClient`, keeping that boundary cleanly
+ * serializable — keep it that way. The waterfall steps come from the pure
+ * `computeWaterfall(groups, netWorth)`, computed HERE on the server where the
+ * institution groups and net worth are already resolved (Spec 4 R7.3); the
+ * client `NetWorthWaterfall` only renders the resulting serializable steps.
  *
  * The whole dashboard subtree is wrapped in `DashboardErrorBoundary` so an
  * unexpected fault in any child falls back to the plain-language LoadError copy
@@ -48,12 +52,14 @@ import {
   computeNetWorth,
   validateAccounts,
 } from '@/lib/calculations/allocation';
+import { computeWaterfall } from '@/lib/calculations/waterfall';
 import type {
   AllocationResult,
   ClassTotals,
   FreshnessResult,
   InstitutionGroup,
   NetWorthResult,
+  WaterfallStep,
 } from '@/types/accounts';
 import DashboardShell from '@/components/layout/DashboardShell';
 import DashboardErrorBoundary from '@/components/layout/DashboardErrorBoundary';
@@ -161,16 +167,27 @@ export default function Home(): React.ReactElement {
     );
   }
 
+  // Net-worth waterfall steps (Spec 4 R7.3): derived here on the server from the
+  // already-resolved institution groups + net worth, so only plain numbers (no
+  // Dates) cross into the client island. The pure helper changes no existing
+  // calculation result; its final running total equals `netWorth.netWorth`.
+  const waterfallSteps: WaterfallStep[] = computeWaterfall(groups, netWorth);
+
   // State 5 — Ready (R6.1): valid, non-empty, non-zero. Full dashboard in the
   // design's document order: net worth header, institution list, then the
   // allocation + target section (the interactive client island). Only the
-  // serializable `allocation` and `totals` (no Dates) cross into the client.
+  // serializable `allocation`, `totals`, and `waterfallSteps` (no Dates) cross
+  // into the client.
   return (
     <DashboardErrorBoundary>
       <DashboardShell>
         <NetWorthHeader netWorth={netWorth} />
         <InstitutionList groups={groups} freshness={freshness} />
-        <DashboardClient allocation={allocation} totals={totals} />
+        <DashboardClient
+          allocation={allocation}
+          totals={totals}
+          waterfallSteps={waterfallSteps}
+        />
       </DashboardShell>
     </DashboardErrorBoundary>
   );

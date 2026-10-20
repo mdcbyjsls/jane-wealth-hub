@@ -1,5 +1,6 @@
 /*
- * AllocationSection — the composed allocation view (R3.5, R4.2, R4.6, R9.6).
+ * AllocationSection — the composed allocation view (R3.5, R4.2, R4.6, R9.6;
+ * Spec 4 R7.1, R7.2, R8.1, R8.3).
  *
  * Pure presentational component: props in, markup out. It performs NO
  * computation and NO data fetching — all numbers arrive pre-computed from the
@@ -8,12 +9,16 @@
  * formats what it is given.
  *
  * Composition, top to bottom (per the design's UI composition for this
- * section):
+ * section, upgraded by the Spec 4 visualization pass):
  *   1. `OnTrackBanner` at the very top (R4.6) — overall status plus the
  *      largest-drift sentence.
- *   2. `AllocationPie` (R3.5) — the pie of the four Asset_Class buckets with
- *      its programmatically associated text alternative.
- *   3. Per-class rows (R4.2), one per Asset_Class, each showing the actual
+ *   2. `DriftBars` (Spec 4 R7.2) — per-class diverging drift bars sitting right
+ *      next to the on-track status so "how far past the line" reads at a glance,
+ *      fed by the same `DriftResult` the rows use.
+ *   3. `AllocationDonut` (Spec 4 R7.1, replacing the old pie, R3.5) — the donut
+ *      of the four Asset_Class buckets with the target drawn as an outer ring,
+ *      its class dollars feeding the tooltips, and its text alternative.
+ *   4. Per-class rows (R4.2), one per Asset_Class, each showing the actual
  *      percentage, the target percentage, and the Drift in BOTH percentage
  *      points and dollars.
  *
@@ -33,7 +38,8 @@ import type {
 } from '@/types/accounts';
 import { formatCurrency, formatPercent } from '@/lib/format';
 import OnTrackBanner from '@/components/ui/OnTrackBanner';
-import { AllocationPie } from '@/components/charts/AllocationPie';
+import AllocationDonut from '@/components/charts/AllocationDonut';
+import DriftBars from '@/components/charts/DriftBars';
 
 /** Human-readable labels for each Asset_Class, in canonical display order. */
 const CLASS_ROWS: ReadonlyArray<{ key: AssetClass; label: string }> = [
@@ -107,10 +113,25 @@ export default function AllocationSection({
       {/* 1. Overall status banner at the top (R4.6). */}
       <OnTrackBanner status={onTrackStatus} />
 
-      {/* 2. The pie with its text alternative (R3.5). */}
-      <AllocationPie allocation={allocation} />
+      {/*
+        2. Per-class drift bars right next to the on-track status (Spec 4 R7.2),
+        fed by the same DriftResult the rows below use. Direction/status carry a
+        shape + text cue, not color alone.
+      */}
+      <DriftBars drift={drift} />
 
-      {/* 3. Per-class rows: actual %, target %, and drift in points + dollars (R4.2). */}
+      {/*
+        3. The donut with its text alternative (Spec 4 R7.1, replacing the pie).
+        The full AllocationResult carries the actual percentages and the
+        classDollars the tooltips need; the target is the outer ring.
+      */}
+      <AllocationDonut
+        allocation={allocation}
+        target={target}
+        classDollars={allocation.classDollars}
+      />
+
+      {/* 4. Per-class rows: actual %, target %, and drift in points + dollars (R4.2). */}
       <div className="overflow-x-auto">
         <table className="w-full border-collapse text-sm">
           <caption className="sr-only">
