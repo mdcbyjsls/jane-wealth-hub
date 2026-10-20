@@ -1,0 +1,5 @@
+{
+  "cpi":        { "seriesId": "CPIAUCSL", "value": 315.6, "asOf": "2026-09-01" },
+  "tenYear":    { "seriesId": "DGS10",    "value": 4.1,   "asOf": "2026-10-14" },
+  "threeMonth": { "seriesId": "DTB3",     "value": 4.8,   "asOf": "2026-10-14" }
+}

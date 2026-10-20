@@ -18,6 +18,7 @@ Relevant series:
 | `CUSR0000SEHA` | CPI for rent of primary residence |
 | `CSUSHPINSA` | Case-Shiller national home price index |
 | `DGS10` | 10-year Treasury yield (risk-free rate proxy) |
+| `DTB3` | 3-month Treasury bill yield (cash anchor) |
 
 ### Rules for FRED data
 

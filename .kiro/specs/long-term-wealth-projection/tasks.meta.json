@@ -1,0 +1,442 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Create `types/market.ts` with the shared market/return model types": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473605225
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473613323
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473669408
+      }
+    ],
+    "1.2 Add the DTB3 row to the `tech.md` FRED series table": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473605307
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473614710
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473670407
+      }
+    ],
+    "2.1 Create `data/fred-snapshot.json`": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473605353
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473615524
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473671453
+      }
+    ],
+    "3.1 Implement `lib/calculations/projection.ts`": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473605389
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473677695
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473785727
+      }
+    ],
+    "4. Checkpoint - projection math": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473605421
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792474056322
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792474066365
+      }
+    ],
+    "5.1 Implement `lib/fred/types.ts`": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473605446
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473678456
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473786321
+      }
+    ],
+    "5.2 Implement `lib/fred/client.ts`": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473605477
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473791206
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473951203
+      }
+    ],
+    "5.3 Implement `lib/fred/cache.ts`": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473605506
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473792611
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473952604
+      }
+    ],
+    "6.1 Implement the pure `resolveMarketData` decision function": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473605536
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792474082189
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792474450167
+      }
+    ],
+    "6.2 Implement `app/api/market-data/route.ts` GET handler wiring the real collaborators": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473605564
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792474456054
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792474558514
+      }
+    ],
+    "7. Checkpoint - market-data fallback": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473605594
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792474563602
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792474570444
+      }
+    ],
+    "8.1 Implement `lib/projectionMessages.ts`": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473605624
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473793527
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473949071
+      }
+    ],
+    "9.1 Implement `components/charts/ProjectionChart.tsx`": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473605655
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473794989
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473953045
+      }
+    ],
+    "9.2 Implement `components/ui/AssumptionPanel.tsx`": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473605687
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792474083161
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792474451174
+      }
+    ],
+    "9.3 Implement `components/ui/DollarBasisToggle.tsx`": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473605719
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473795870
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473950286
+      }
+    ],
+    "9.4 Implement `components/ui/MarketDataBanner.tsx`": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473605759
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473956770
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792474040208
+      }
+    ],
+    "9.5 Implement `components/ui/ComparisonSummary.tsx`": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473605791
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792474084103
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792474448863
+      }
+    ],
+    "9.6 Implement `components/ui/ProjectionEmptyState.tsx` and `components/ui/ProjectionErrorState.tsx`": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473605841
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473957970
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792474039155
+      }
+    ],
+    "10.1 Implement `components/layout/ProjectionClient.tsx`": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473605873
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792474574229
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792474781259
+      }
+    ],
+    "10.2 Implement `components/layout/ProjectionErrorBoundary.tsx`": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473605906
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792474456920
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792474559307
+      }
+    ],
+    "11.1 Implement `app/projection/page.tsx` (server component)": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473605938
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792474784957
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792474872359
+      }
+    ],
+    "12. Final checkpoint - full view": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473605971
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792474876589
+      },
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792474887517
+      }
+    ],
+    "1. Add shared market types and the DTB3 steering note": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473670441
+      }
+    ],
+    "2. Add the static market-data snapshot fallback": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473671488
+      }
+    ],
+    "3. Implement the pure projection calculator": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473785826
+      }
+    ],
+    "8. Add centralized projection copy": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473949160
+      }
+    ],
+    "5. Implement the server-only FRED integration and cache": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792473952636
+      }
+    ],
+    "9. Implement the projection UI components": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792474451202
+      }
+    ],
+    "6. Implement the server-only market-data route with a pure resolver": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792474558587
+      }
+    ],
+    "10. Implement the client island and error boundary": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792474781337
+      }
+    ],
+    "11. Wire the projection page": [
+      {
+        "executionId": "04d60b9d-a48e-42b9-82c1-fc8460c667cf",
+        "chatSessionId": "sess_2c7d5923-750d-489d-a841-dde4f924fd67",
+        "timestamp": 1792474872389
+      }
+    ]
+  }
+}
