@@ -1,0 +1,449 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Extend `types/market.ts` with the three new series and snapshot fields": [
+      {
+        "executionId": "05012710-2b31-44b8-9ce6-7a0a7f2819eb",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477568288
+      },
+      {
+        "executionId": "05012710-2b31-44b8-9ce6-7a0a7f2819eb",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477576004
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477637935
+      }
+    ],
+    "1.2 Add the buy-vs-rent calculator types": [
+      {
+        "executionId": "05012710-2b31-44b8-9ce6-7a0a7f2819eb",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477568321
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477644174
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477727351
+      }
+    ],
+    "2.1 Add the three new series to `data/fred-snapshot.json`": [
+      {
+        "executionId": "05012710-2b31-44b8-9ce6-7a0a7f2819eb",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477568378
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477645610
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477726456
+      }
+    ],
+    "3.1 Implement amortization and the investment return in `lib/calculations/buyVsRent.ts`": [
+      {
+        "executionId": "05012710-2b31-44b8-9ce6-7a0a7f2819eb",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477568427
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477734357
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477832108
+      }
+    ],
+    "3.2 Implement the drawdown and single-band path computation": [
+      {
+        "executionId": "05012710-2b31-44b8-9ce6-7a0a7f2819eb",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477568459
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477836641
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477993958
+      }
+    ],
+    "3.3 Implement the scenario bands, breakeven, verdict, tipping point, and sensitivity": [
+      {
+        "executionId": "05012710-2b31-44b8-9ce6-7a0a7f2819eb",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477568485
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477998766
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792478175651
+      }
+    ],
+    "3.4 Implement the `computeComparison` orchestrator": [
+      {
+        "executionId": "05012710-2b31-44b8-9ce6-7a0a7f2819eb",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477568518
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792478178728
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792478275025
+      }
+    ],
+    "4. Checkpoint - calculator math": [
+      {
+        "executionId": "05012710-2b31-44b8-9ce6-7a0a7f2819eb",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477568543
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792507028452
+      }
+    ],
+    "5.1 Extend `lib/fred/types.ts` with the three new raw series values": [
+      {
+        "executionId": "05012710-2b31-44b8-9ce6-7a0a7f2819eb",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477568577
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477646519
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477725515
+      }
+    ],
+    "5.2 Extend `lib/fred/client.ts` to fetch six series": [
+      {
+        "executionId": "05012710-2b31-44b8-9ce6-7a0a7f2819eb",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477568616
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477735406
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477833084
+      }
+    ],
+    "5.3 Extend the route and resolver to carry the three new series": [
+      {
+        "executionId": "05012710-2b31-44b8-9ce6-7a0a7f2819eb",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477568655
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477837505
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477994112
+      }
+    ],
+    "6. Checkpoint - market-data extension": [
+      {
+        "executionId": "05012710-2b31-44b8-9ce6-7a0a7f2819eb",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477568707
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792507029459
+      }
+    ],
+    "7.1 Implement `lib/buyVsRentMessages.ts`": [
+      {
+        "executionId": "05012710-2b31-44b8-9ce6-7a0a7f2819eb",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477568740
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792478295145
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792507019872
+      }
+    ],
+    "8.1 Implement `components/charts/ComparisonChart.tsx`": [
+      {
+        "executionId": "05012710-2b31-44b8-9ce6-7a0a7f2819eb",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477568771
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792478296567
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792507020760
+      }
+    ],
+    "8.2 Implement the buy-vs-rent `components/ui/AssumptionPanel.tsx`": [
+      {
+        "executionId": "05012710-2b31-44b8-9ce6-7a0a7f2819eb",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477568809
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792507033374
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792507218268
+      }
+    ],
+    "8.3 Implement `components/ui/ComparisonSummary.tsx`": [
+      {
+        "executionId": "05012710-2b31-44b8-9ce6-7a0a7f2819eb",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477568850
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792478297729
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792507022118
+      }
+    ],
+    "8.4 Implement `VerdictCard` and `SensitivityCard`": [
+      {
+        "executionId": "05012710-2b31-44b8-9ce6-7a0a7f2819eb",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477568889
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792507034787
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792507219580
+      }
+    ],
+    "8.5 Implement `AllocationShiftCard` and `CushionCard`": [
+      {
+        "executionId": "05012710-2b31-44b8-9ce6-7a0a7f2819eb",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477568918
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792507036110
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792507220986
+      }
+    ],
+    "8.6 Implement `components/ui/BuyVsRentEmptyState.tsx` and `components/ui/BuyVsRentErrorState.tsx`": [
+      {
+        "executionId": "05012710-2b31-44b8-9ce6-7a0a7f2819eb",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477568944
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792478298839
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792507023467
+      }
+    ],
+    "9.1 Implement `components/layout/BuyVsRentClient.tsx`": [
+      {
+        "executionId": "05012710-2b31-44b8-9ce6-7a0a7f2819eb",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477568976
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792507226498
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792507458432
+      }
+    ],
+    "9.2 Implement `components/layout/BuyVsRentErrorBoundary.tsx`": [
+      {
+        "executionId": "05012710-2b31-44b8-9ce6-7a0a7f2819eb",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477569002
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792507037190
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792507221870
+      }
+    ],
+    "10.1 Implement `app/buy-vs-rent/page.tsx` (server component)": [
+      {
+        "executionId": "05012710-2b31-44b8-9ce6-7a0a7f2819eb",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477569032
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792507462269
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792507551325
+      }
+    ],
+    "11. Final checkpoint - full view": [
+      {
+        "executionId": "05012710-2b31-44b8-9ce6-7a0a7f2819eb",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477569067
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792507555236
+      }
+    ],
+    "2. Extend the static market-data snapshot fallback": [
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477726555
+      }
+    ],
+    "1. Add shared types and the assumption model": [
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477727382
+      }
+    ],
+    "5. Extend the server-only FRED integration for the three new series": [
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792477994164
+      }
+    ],
+    "3. Implement the pure buy-vs-rent calculator": [
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792478275062
+      }
+    ],
+    "3.5 Write unit tests for the calculator in `lib/calculations/__tests__/buyVsRent.test.ts`": [
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792478293577
+      },
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792507018573
+      }
+    ],
+    "7. Add centralized buy-vs-rent copy": [
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792507019902
+      }
+    ],
+    "8. Implement the buy-vs-rent UI components": [
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792507221020
+      }
+    ],
+    "9. Implement the client island and error boundary": [
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792507458471
+      }
+    ],
+    "10. Wire the buy-vs-rent page": [
+      {
+        "executionId": "bd0a32f6-34bb-4338-9d17-da2f3ef18f4e",
+        "chatSessionId": "sess_c6ab929b-72c6-459c-b86a-51584abe9437",
+        "timestamp": 1792507551404
+      }
+    ]
+  }
+}
