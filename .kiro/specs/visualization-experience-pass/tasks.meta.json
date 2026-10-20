@@ -1,0 +1,428 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Implement `lib/chartColors.ts`": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537467446
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537475577
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537535332
+      }
+    ],
+    "1.2 Migrate existing color consumers to the shared module": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537467560
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537538978
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537650669
+      }
+    ],
+    "2.1 Implement `lib/calculations/sensitivityTornado.ts`": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537467628
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537540358
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537651707
+      }
+    ],
+    "2.3 Implement `lib/calculations/composition.ts`": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537467666
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537541341
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537653087
+      }
+    ],
+    "2.5 Implement `lib/calculations/projectByClass.ts`": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537467705
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537542657
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537654423
+      }
+    ],
+    "2.7 Implement `lib/calculations/waterfall.ts`": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537467739
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537543509
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537654983
+      }
+    ],
+    "3. Checkpoint — helpers and colors": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537467766
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537667027
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537759849
+      }
+    ],
+    "4.1 Implement `components/charts/ChartLegend.tsx`": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537467800
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537668182
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537760544
+      }
+    ],
+    "5.1 Implement `components/ui/SliderStrip.tsx`": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537467833
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537777381
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537992674
+      }
+    ],
+    "5.2 Evolve the two-path chart into `components/charts/TwoPathChart.tsx`": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537467877
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537778759
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537990378
+      }
+    ],
+    "5.3 Implement `components/charts/CompositionBars.tsx`": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537467957
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537780180
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537993734
+      }
+    ],
+    "5.4 Implement `components/charts/SensitivityTornado.tsx`": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537468014
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537781679
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537991789
+      }
+    ],
+    "5.5 Wire the hero into `components/layout/BuyVsRentClient.tsx` and `app/buy-vs-rent/page.tsx`": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537468067
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792538191219
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792538461718
+      }
+    ],
+    "6.1 Evolve the projection chart into `components/charts/FanChart.tsx`": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537468099
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537782255
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537989196
+      }
+    ],
+    "6.2 Implement `components/charts/GrowthByClassArea.tsx`": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537468140
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537998328
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792538182905
+      }
+    ],
+    "6.3 Mount both projection charts in `components/layout/ProjectionClient.tsx`": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537468178
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792538188990
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792538459803
+      }
+    ],
+    "7.1 Evolve the pie into `components/charts/AllocationDonut.tsx`": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537468221
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537999747
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792538180667
+      }
+    ],
+    "7.2 Implement `components/charts/DriftBars.tsx`": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537468263
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792538000838
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792538182124
+      }
+    ],
+    "7.3 Implement `components/charts/NetWorthWaterfall.tsx`": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537468311
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792538002068
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792538179216
+      }
+    ],
+    "7.4 Mount the dashboard charts in `components/layout/DashboardClient.tsx` and": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537468362
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792538190031
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792538460697
+      }
+    ],
+    "8.1 Update `components/layout/PrimaryNav.tsx` to Today / Future / Decision": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537468398
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792538003176
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792538184053
+      }
+    ],
+    "9. Final checkpoint — full visualization pass": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537468440
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792538468669
+      },
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792538635306
+      }
+    ],
+    "1. Add the shared color module (single source of truth)": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537650724
+      }
+    ],
+    "2. Implement the four new pure helpers with unit tests": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537655030
+      }
+    ],
+    "4. Add the shared chart building blocks": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792537760578
+      }
+    ],
+    "8. Relabel the primary navigation": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792538184112
+      }
+    ],
+    "6. Build the projection visualization": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792538459855
+      }
+    ],
+    "7. Build the dashboard visualization": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792538460749
+      }
+    ],
+    "5. Build the buy-vs-rent (hero) visualization": [
+      {
+        "executionId": "c5132c61-aeac-4797-83f1-71abbbb52de2",
+        "chatSessionId": "sess_ce74c650-9e99-46ae-8108-8c7fdd8bb9a0",
+        "timestamp": 1792538461753
+      }
+    ]
+  }
+}
