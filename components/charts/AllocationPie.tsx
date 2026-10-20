@@ -26,8 +26,13 @@ import { formatPercent, formatPercentLabel } from '@/lib/format';
  * markup out. No data fetching, no state.
  */
 
-/** Human-readable labels for each Asset_Class, in canonical display order. */
-const CLASS_LABELS: ReadonlyArray<{ key: AssetClass; label: string }> = [
+/**
+ * Human-readable labels for each Asset_Class, in canonical display order.
+ *
+ * Exported so every allocation surface (the pie, the post-purchase shift card,
+ * any legend) names the classes identically — one label set, used everywhere.
+ */
+export const CLASS_LABELS: ReadonlyArray<{ key: AssetClass; label: string }> = [
   { key: 'stocks', label: 'Stocks' },
   { key: 'bonds', label: 'Bonds' },
   { key: 'cash', label: 'Cash' },
@@ -38,8 +43,12 @@ const CLASS_LABELS: ReadonlyArray<{ key: AssetClass; label: string }> = [
  * Distinct, print-and-contrast-friendly slice colors. Kept in the same order
  * as {@link CLASS_LABELS}. Color is a visual aid only — the text alternative,
  * not these hues, is what conveys the data to assistive tech.
+ *
+ * Exported so the fixed one-color-per-class mapping is reused everywhere an
+ * allocation appears (per the ui-style rule), never redefined per component.
+ * Color always travels with a class label; it is never the sole cue (R9.6).
  */
-const CLASS_COLORS: Record<AssetClass, string> = {
+export const CLASS_COLORS: Record<AssetClass, string> = {
   stocks: '#2563eb', // blue-600
   bonds: '#16a34a', // green-600
   cash: '#d97706', // amber-600
