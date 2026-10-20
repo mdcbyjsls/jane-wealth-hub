@@ -1,9 +1,11 @@
 /**
  * Server-only thin FRED fetch wrapper.
  *
- * This module performs the raw HTTP fetch of the three market series this spec uses — CPIAUCSL
- * (general inflation), DGS10 (10-year Treasury yield), and DTB3 (3-month Treasury bill yield) — from
- * the FRED `series/observations` endpoint and parses the latest observation of each. It is imported
+ * This module performs the raw HTTP fetch of the six market series this spec uses — CPIAUCSL (general
+ * inflation), DGS10 (10-year Treasury yield), DTB3 (3-month Treasury bill yield), MORTGAGE30US (30-year
+ * fixed mortgage rate), CSUSHPINSA (Case-Shiller home price index), and CUSR0000SEHA (CPI for rent of
+ * primary residence) — from the FRED `series/observations` endpoint and parses the latest observation
+ * of each. It is imported
  * only by `lib/fred/cache.ts` and the `app/api/market-data/` route, never by components or pages, so
  * the FRED wire format and the API key never reach the browser.
  *
@@ -122,12 +124,12 @@ export async function fetchSeries(
 }
 
 /**
- * Fetch all three series the view needs and return the resolved {@link FredFetchResult}.
+ * Fetch all six series the views need and return the resolved {@link FredFetchResult}.
  *
- * Enforces a single shared timeout budget across the three requests via `AbortSignal.timeout`
+ * Enforces a single shared timeout budget across the six requests via `AbortSignal.timeout`
  * (default 10 s; R9.2). Returns `{ ok: true; values }` only when every required series resolves; the
  * first failure is returned as `{ ok: false; reason }` with no partial values, so the route can never
- * serve an incomplete set.
+ * serve an incomplete set (R11.1, R11.2).
  */
 export async function fetchAllSeries(
   apiKey: string,
@@ -135,11 +137,15 @@ export async function fetchAllSeries(
 ): Promise<FredFetchResult> {
   const signal = AbortSignal.timeout(timeoutMs);
 
-  const [cpi, tenYear, threeMonth] = await Promise.all([
-    fetchSeries('CPIAUCSL', apiKey, signal),
-    fetchSeries('DGS10', apiKey, signal),
-    fetchSeries('DTB3', apiKey, signal),
-  ]);
+  const [cpi, tenYear, threeMonth, mortgageRate, homePriceIndex, rentIndex] =
+    await Promise.all([
+      fetchSeries('CPIAUCSL', apiKey, signal),
+      fetchSeries('DGS10', apiKey, signal),
+      fetchSeries('DTB3', apiKey, signal),
+      fetchSeries('MORTGAGE30US', apiKey, signal),
+      fetchSeries('CSUSHPINSA', apiKey, signal),
+      fetchSeries('CUSR0000SEHA', apiKey, signal),
+    ]);
 
   if (!cpi.ok) {
     return { ok: false, reason: cpi.reason };
@@ -150,6 +156,15 @@ export async function fetchAllSeries(
   if (!threeMonth.ok) {
     return { ok: false, reason: threeMonth.reason };
   }
+  if (!mortgageRate.ok) {
+    return { ok: false, reason: mortgageRate.reason };
+  }
+  if (!homePriceIndex.ok) {
+    return { ok: false, reason: homePriceIndex.reason };
+  }
+  if (!rentIndex.ok) {
+    return { ok: false, reason: rentIndex.reason };
+  }
 
   return {
     ok: true,
@@ -157,6 +172,9 @@ export async function fetchAllSeries(
       cpi: cpi.value,
       tenYear: tenYear.value,
       threeMonth: threeMonth.value,
+      mortgageRate: mortgageRate.value,
+      homePriceIndex: homePriceIndex.value,
+      rentIndex: rentIndex.value,
     },
   };
 }

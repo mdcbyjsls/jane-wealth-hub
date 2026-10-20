@@ -40,13 +40,19 @@ export interface RawSeriesValue {
 }
 
 /**
- * The three resolved series values a successful fetch produces, keyed to match `MarketDataSnapshot`:
- * `cpi` (CPIAUCSL), `tenYear` (DGS10), `threeMonth` (DTB3).
+ * The resolved series values a successful fetch produces, keyed to match `MarketDataSnapshot`:
+ * `cpi` (CPIAUCSL), `tenYear` (DGS10), `threeMonth` (DTB3), plus the three Spec 3 (buy-vs-rent)
+ * additions `mortgageRate` (MORTGAGE30US), `homePriceIndex` (CSUSHPINSA), and `rentIndex`
+ * (CUSR0000SEHA). `CacheEntry` stores a `RawSeriesValues`, so widening this interface carries the new
+ * series through the 24-hour cache automatically (R11.1, R11.2).
  */
 export interface RawSeriesValues {
-  cpi: RawSeriesValue;
-  tenYear: RawSeriesValue;
-  threeMonth: RawSeriesValue;
+  cpi: RawSeriesValue; // CPIAUCSL
+  tenYear: RawSeriesValue; // DGS10
+  threeMonth: RawSeriesValue; // DTB3
+  mortgageRate: RawSeriesValue; // MORTGAGE30US
+  homePriceIndex: RawSeriesValue; // CSUSHPINSA
+  rentIndex: RawSeriesValue; // CUSR0000SEHA
 }
 
 /**

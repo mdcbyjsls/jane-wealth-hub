@@ -62,27 +62,41 @@ function parseSeries(
 
 /**
  * Read and validate the static snapshot fallback (`data/fred-snapshot.json`), mapping it to
- * {@link RawSeriesValues}. Returns `null` when any required series (`cpi`/`tenYear`/`threeMonth`) is
- * missing or malformed, so the resolver surfaces a market-unavailable error rather than a partial set
- * (R9.6). The JSON is imported (statically bundled) rather than read from disk.
+ * {@link RawSeriesValues}. Returns `null` when any required series
+ * (`cpi`/`tenYear`/`threeMonth`/`mortgageRate`/`homePriceIndex`/`rentIndex`) is missing or malformed,
+ * so the resolver surfaces a market-unavailable error rather than a partial set (R9.6). The JSON is
+ * imported (statically bundled) rather than read from disk.
  */
 function readSnapshot(): RawSeriesValues | null {
   const source = snapshot as {
     cpi?: unknown;
     tenYear?: unknown;
     threeMonth?: unknown;
+    mortgageRate?: unknown;
+    homePriceIndex?: unknown;
+    rentIndex?: unknown;
   };
 
   const cpi = parseSeries(source.cpi, 'CPIAUCSL');
   const tenYear = parseSeries(source.tenYear, 'DGS10');
   const threeMonth = parseSeries(source.threeMonth, 'DTB3');
+  const mortgageRate = parseSeries(source.mortgageRate, 'MORTGAGE30US');
+  const homePriceIndex = parseSeries(source.homePriceIndex, 'CSUSHPINSA');
+  const rentIndex = parseSeries(source.rentIndex, 'CUSR0000SEHA');
 
   // Every required series must resolve; any gap means no usable snapshot (R9.6).
-  if (cpi === null || tenYear === null || threeMonth === null) {
+  if (
+    cpi === null ||
+    tenYear === null ||
+    threeMonth === null ||
+    mortgageRate === null ||
+    homePriceIndex === null ||
+    rentIndex === null
+  ) {
     return null;
   }
 
-  return { cpi, tenYear, threeMonth };
+  return { cpi, tenYear, threeMonth, mortgageRate, homePriceIndex, rentIndex };
 }
 
 /**
