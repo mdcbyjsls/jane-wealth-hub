@@ -1,0 +1,37 @@
+{
+  "seed": "jwh-institution-a",
+  "override_accounts": [
+    {
+      "type": "depository",
+      "subtype": "savings",
+      "starting_balance": 85420.18,
+      "force_available_balance": 85420.18,
+      "currency": "USD",
+      "meta": {
+        "name": "Platypus High-Yield Savings"
+      }
+    },
+    {
+      "type": "loan",
+      "subtype": "student",
+      "starting_balance": 28450.00,
+      "currency": "USD",
+      "meta": {
+        "name": "Platypus Student Loan"
+      },
+      "liability": {
+        "type": "student",
+        "origination_date": "2019-09-01",
+        "principal": 28450.00,
+        "nominal_apr": 5.05,
+        "guarantor": "DEPT OF ED",
+        "loan_name": "Platypus Student Loan",
+        "repayment_model": {
+          "type": "standard",
+          "non_repayment_months": 6,
+          "repayment_months": 120
+        }
+      }
+    }
+  ]
+}
