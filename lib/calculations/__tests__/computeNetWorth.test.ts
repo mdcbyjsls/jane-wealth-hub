@@ -23,7 +23,10 @@ import type { Account } from '@/types/accounts';
  */
 function acct(partial: Partial<Account>): Account {
   return {
+    id: 'acct-test',
+    source: 'Sample',
     institution: 'Test',
+    accountName: 'Test Account',
     accountType: 'brokerage',
     balance: 0,
     assetClassBreakdown: { stocks: 100, bonds: 0, cash: 0, other: 0 },
