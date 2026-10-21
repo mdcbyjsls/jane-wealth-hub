@@ -109,3 +109,44 @@ export interface ComparisonResult {
   sensitivity: SensitivityEntry[]; // ranked, R8
   investmentReturnPercent: number; // the base Investment_Return used (R2.7)
 }
+
+// ---------------------------------------------------------------------------
+// Spec 4 (Visualization_Pass) presentation helper types
+// ---------------------------------------------------------------------------
+
+/**
+ * One ranked, two-sided sensitivity entry for the Sensitivity_Tornado (Spec 4 R2.3, R5.7).
+ *
+ * Where the Spec 3 `SensitivityEntry` perturbs an assumption once and records a single magnitude,
+ * a tornado needs BOTH a down and an up perturbation per assumption, the resulting signed year-10
+ * `Buy − Rent` gaps at each end, and the actual input values used, so each bar can be labeled with
+ * the range it explored rather than just a magnitude.
+ */
+export interface TornadoEntry {
+  key: keyof BuyVsRentAssumptions;
+  label: string; // plain-language assumption name
+  lowInput: number; // the assumption value at the down perturbation
+  highInput: number; // the assumption value at the up perturbation
+  lowGap: number; // year-10 (Buy − Rent) with the low input, all else fixed
+  highGap: number; // year-10 (Buy − Rent) with the high input, all else fixed
+  baseGap: number; // year-10 (Buy − Rent) at the unperturbed base (same for every entry)
+  swing: number; // |highGap − lowGap|, the ranking magnitude
+}
+
+/**
+ * The base-band year-10 net worth of each path split into stackable components for the
+ * Composition_Bars (Spec 4 R2.4, R5.6). The Buy components sum to the base-band year-10 Buy value
+ * and the Rent value equals the base-band year-10 Rent value computed by the Spec 3 calculator on
+ * the same inputs.
+ */
+export interface Year10Composition {
+  buy: {
+    homeEquity: number; // Home_Value(10) − Loan_Balance(10) − year-10 selling cost
+    sideInvestments: number; // Buy_Path side investment at year 10
+    total: number; // homeEquity + sideInvestments (== bands.buy.base[10])
+  };
+  rent: {
+    investments: number; // Rent_Path invested balance at year 10 (== bands.rent.base[10])
+    total: number; // == investments
+  };
+}

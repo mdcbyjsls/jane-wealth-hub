@@ -52,6 +52,7 @@ import type {
   DollarBasis,
   MarketDataError,
   MarketDataSnapshot,
+  ProjectedPoint,
   ReturnModel,
   ScenarioMultipliers,
   ScenarioSeries,
@@ -66,11 +67,13 @@ import {
   deriveReturnModel,
   toTodaysDollars,
 } from '@/lib/calculations/projection';
+import { projectByClass } from '@/lib/calculations/projectByClass';
 import { DEFAULT_TARGET, loadTarget } from '@/lib/target/targetStore';
 import { formatCurrency } from '@/lib/format';
 import { PROJECTION_MESSAGES } from '@/lib/projectionMessages';
 
-import ProjectionChart from '@/components/charts/ProjectionChart';
+import FanChart from '@/components/charts/FanChart';
+import GrowthByClassArea from '@/components/charts/GrowthByClassArea';
 import AssumptionPanel, {
   type AssumptionValues,
   type EditableField,
@@ -360,6 +363,33 @@ export default function ProjectionClient({
     effectiveBasis,
   ]);
 
+  // The per-class "if you never rebalance" series (R6.3, R6.4). Each Asset_Class
+  // is projected independently at its own Expected_Return from its own starting
+  // dollars via `projectByClass`. When the EFFECTIVE basis is `today` we apply
+  // the SAME today's-dollars discounting used for the fan series above, so the
+  // two charts stay in one consistent basis as the toggle flips (R6.5).
+  const perClassSeries = useMemo<Record<AssetClass, ProjectedPoint[]> | null>(() => {
+    if (returnModel === null) {
+      return null;
+    }
+    const nominal = projectByClass(allocation.classDollars, returnModel, currentYear);
+    if (effectiveBasis !== 'today') {
+      return nominal;
+    }
+    const infl = assumptions.inflationRate;
+    const discounted = {} as Record<AssetClass, ProjectedPoint[]>;
+    for (const key of ASSET_CLASS_KEYS) {
+      discounted[key] = toTodaysDollars(nominal[key], infl, currentYear);
+    }
+    return discounted;
+  }, [
+    returnModel,
+    allocation.classDollars,
+    currentYear,
+    effectiveBasis,
+    assumptions.inflationRate,
+  ]);
+
   // Commit a single valid assumption edit from the panel (R3.3).
   const handleCommit = useCallback((field: EditableField, value: number): void => {
     setAssumptions((prev) => {
@@ -461,8 +491,10 @@ export default function ProjectionClient({
                 basisLabel={basisLabel}
               />
 
-              {/* The band chart: current + target bands (R4.3, R7.3). */}
-              <ProjectionChart
+              {/* The fan chart: shaded pessimistic→optimistic band + base line,
+                  labeled 10/20/30 markers, current (solid navy) + target
+                  (dashed teal) overlays (R6.1, R6.2, R4.3, R7.3). */}
+              <FanChart
                 current={projection.current}
                 target={projection.target}
                 projectedBase={projectedBase}
@@ -475,6 +507,13 @@ export default function ProjectionClient({
                 target={projection.target}
                 isExample={target.isExample}
               />
+
+              {/* "If you never rebalance" — each class grown independently at its
+                  own expected return, in the same active Dollar_Basis as the fan
+                  above (R6.3, R6.4, R6.5). Stacked below the fan, single column. */}
+              {perClassSeries !== null ? (
+                <GrowthByClassArea series={perClassSeries} basisLabel={basisLabel} />
+              ) : null}
             </>
           )}
 

@@ -168,3 +168,23 @@ export interface ValidationError {
 export type ValidationResult =
   | { ok: true; accounts: Account[] }
   | { ok: false; errors: ValidationError[] };
+
+// ---------------------------------------------------------------------------
+// Spec 4 (Visualization_Pass) net-worth waterfall model
+// ---------------------------------------------------------------------------
+
+/** What a waterfall step represents: an institution asset subtotal, one liability, or the total. */
+export type WaterfallStepKind = 'institution' | 'liability' | 'total';
+
+/**
+ * One ordered step in the Net_Worth_Waterfall (Spec 4 R2.6, R7.3): institution asset subtotals
+ * stacking up to total assets, each liability as its own negative step, ending at the net-worth
+ * total bar. The final step's `runningTotal` equals `NetWorthResult.netWorth`.
+ */
+export interface WaterfallStep {
+  label: string; // institution name, liability name, or "Net worth"
+  kind: WaterfallStepKind;
+  delta: number; // signed contribution (+ assets, − liabilities); 0 for the total marker
+  runningTotal: number; // cumulative value after this step
+  isTotal: boolean; // true for the final net-worth bar (drawn from 0, not floating)
+}
