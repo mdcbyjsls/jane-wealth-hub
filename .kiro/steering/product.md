@@ -27,6 +27,10 @@ Compare net worth after 10 years under two scenarios:
 
 All inputs (home price, down payment %, rent, mortgage rate, appreciation rate, etc.) must be visible, editable, and sourced. The output should show net worth at year 10 for each scenario, expressed as a range.
 
+### 4. Editable Accounts & Plaid Sandbox Connections
+
+Accounts are editable: the user can add, edit, and delete accounts, with changes persisted in the browser (localStorage). The user can also connect test banks through Plaid Sandbox, which pulls in account balances and holdings. All three sources — sample, manual, and connected — produce the same account shape and flow into the same calculations.
+
 ## Design Principles
 
 - **Every assumption is visible, sourced, and editable.** Never hide a number the user didn't choose.
@@ -35,7 +39,10 @@ All inputs (home price, down payment %, rent, mortgage rate, appreciation rate, 
 
 ## Out of Scope for v1
 
-- Real bank or brokerage account linking (no Plaid or OAuth flows)
+- Plaid Production (Sandbox connections only, no real financial institutions)
+- Server-side storage of account data (persistence is browser-only via localStorage)
+- Plaid webhooks and transaction history
+- Holding-level editing (editing happens at the account and allocation-split level)
 - Tax optimization or after-tax return calculations
 - Monte Carlo simulation
-- User accounts, authentication, or persistent storage
+- User accounts, authentication, or server-side persistent storage

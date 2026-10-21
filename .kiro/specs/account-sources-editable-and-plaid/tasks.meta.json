@@ -1,0 +1,610 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1. Extend the Account type and liability source of truth": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542439065
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542452000
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542609553
+      }
+    ],
+    "2.1 Create `lib/accounts/sampleSet.ts`": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542439113
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542613740
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542793940
+      }
+    ],
+    "3.1 Implement `lib/accounts/accountValidation.ts`": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542439147
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542615143
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542794515
+      }
+    ],
+    "4.1 Update `lib/calculations/allocation.ts` and net-worth logic to use `LIABILITY_TYPES`": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542439193
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542616528
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542795112
+      }
+    ],
+    "5.1 Implement source-aware freshness in `lib/calculations/`": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542439227
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542617380
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542797341
+      }
+    ],
+    "6.1 Implement `lib/calculations/sourceMix.ts`": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542439265
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542618554
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542797387
+      }
+    ],
+    "7. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542439310
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542891675
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543015288
+      }
+    ],
+    "8.1 Implement `classifyHolding` in `lib/plaid/mapper.ts`": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542439349
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542799219
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542882268
+      }
+    ],
+    "9.1 Implement `mapPlaidToAccounts` in `lib/plaid/mapper.ts`": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542439411
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542890917
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543016130
+      }
+    ],
+    "10.1 Implement set-ops in `lib/accounts/accountStore.ts`": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542439453
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543058537
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543166005
+      }
+    ],
+    "11.1 Implement account mutation helpers in `lib/accounts/accountStore.ts`": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542439494
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543166909
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543275171
+      }
+    ],
+    "12.1 Implement `loadAccounts`/`saveAccounts` in `lib/accounts/accountStore.ts`": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542439530
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543275992
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543371401
+      }
+    ],
+    "14. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542439567
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543372719
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543381363
+      }
+    ],
+    "15.1 Implement `lib/plaid/client.ts` SDK wrapper": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542439600
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543382099
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543466683
+      }
+    ],
+    "15.2 Implement `app/api/plaid/link-token/route.ts`": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542439636
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543467977
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543651339
+      }
+    ],
+    "15.3 Implement `app/api/plaid/exchange/route.ts`": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542439669
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543469328
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543651940
+      }
+    ],
+    "15.4 Implement Plaid_Keys_Present server status": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542439710
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543470260
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543653333
+      }
+    ],
+    "16.1 Implement `components/ui/PlaidConnectButton.tsx`": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542439758
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543471488
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543654839
+      }
+    ],
+    "17.1 Implement `SourceBadge.tsx` and `SourceMixSummary.tsx`": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542439794
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543661572
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543888040
+      }
+    ],
+    "17.2 Implement `AccountRow.tsx` with freshness and override labels": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542439829
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543663054
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543885756
+      }
+    ],
+    "17.3 Implement `AccountEditor.tsx` with inline validation": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542439895
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543893978
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792544098256
+      }
+    ],
+    "17.4 Implement `StorageRecoveryBanner.tsx` and the keys-absent/disconnect UI": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542439932
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543894838
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792544097164
+      }
+    ],
+    "17.5 Implement `RentAssumptionNote.tsx`": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542439963
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543664515
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543887119
+      }
+    ],
+    "18.1 Add the store-load lifecycle to `DashboardClient.tsx`": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542440003
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792544105670
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792544423993
+      }
+    ],
+    "18.2 Add the store-load lifecycle to `ProjectionClient.tsx`": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542440062
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792544103367
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792544425326
+      }
+    ],
+    "18.3 Add the store-load lifecycle to `BuyVsRentClient.tsx`": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542440103
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792544104774
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792544426708
+      }
+    ],
+    "19.1 Create the two Sandbox custom-user JSON files": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542440149
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543665825
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543889288
+      }
+    ],
+    "20.1 Edit the product scope steering doc": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542440205
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543666675
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543884590
+      }
+    ],
+    "21. Final checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542440247
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792544427931
+      },
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792544437202
+      }
+    ],
+    "2. Implement the canonical Sample_Set": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542794586
+      }
+    ],
+    "3. Implement per-account editor validation": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542794710
+      }
+    ],
+    "4. Extend the calculators for Source and the mortgage type": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542795236
+      }
+    ],
+    "5. Implement freshness rules for the new sources": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542797424
+      }
+    ],
+    "6. Implement the Source_Mix_Summary helper": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542797472
+      }
+    ],
+    "8. Implement the Plaid_Mapper classification": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792542882333
+      }
+    ],
+    "9. Implement the Plaid_Mapper account mapping": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543016270
+      }
+    ],
+    "10. Implement the Account_Store set operations": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543166142
+      }
+    ],
+    "11. Implement the Account_Store edit, delete-undo, and override operations": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543275281
+      }
+    ],
+    "12. Implement the Account_Store load and recovery": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543371537
+      }
+    ],
+    "15. Implement the server-only Plaid SDK client and routes": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543653372
+      }
+    ],
+    "16. Implement the Plaid Link client wiring": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543654877
+      }
+    ],
+    "20. Update the product-scope steering document": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543884675
+      }
+    ],
+    "19. Add the Plaid Sandbox custom-user configs": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792543889328
+      }
+    ],
+    "17. Implement the account editing and source UI components": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792544098360
+      }
+    ],
+    "18. Wire the views to the Account_Store": [
+      {
+        "executionId": "000c69a6-4e93-46b7-81fd-388c5b03b9c8",
+        "chatSessionId": "sess_04e7d8ee-ba6f-4cd4-8556-e8df52466b09",
+        "timestamp": 1792544426845
+      }
+    ]
+  }
+}

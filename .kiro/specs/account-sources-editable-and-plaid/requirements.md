@@ -33,6 +33,7 @@ This spec changes a decision from Spec 1, where editing accounts and persistent 
 - **Plaid**: The third-party account-aggregation service, used in Sandbox mode only in this spec.
 - **Plaid_Sandbox**: Plaid non-production test environment, which uses test credentials and simulated institutions and returns no real financial data.
 - **Link_Token**: The short-lived token the server creates to initialize Plaid Link in the browser.
+- **Link_Flow_Config**: The options on the Link_Token request that control which Plaid Link screens the user sees. In this spec it is set so Link opens directly to the institution picker and credential entry, with no returning-user phone-number step, and it never carries an end-user identity hint.
 - **Public_Token**: The token Plaid Link returns to the browser on a successful connection, which the server exchanges for an Access_Token.
 - **Access_Token**: The Plaid token that authorizes data requests for a connected institution. In this spec it exists only transiently within a single server request and is never persisted.
 - **Plaid_Mapper**: The pure, unit-tested function that converts Plaid accounts, balances, and holdings into our `Account` model, including the documented Asset_Class rules for ambiguous securities.
@@ -252,3 +253,16 @@ This spec changes a decision from Spec 1, where editing accounts and persistent 
 3. THE views SHALL NOT render sample numbers, or any figures derived from the static file, before the stored accounts have loaded.
 4. WHEN the stored accounts have loaded, THE views SHALL render the computed figures for exactly those accounts.
 5. WHEN the stored accounts change through editing, adding, deleting, connecting, or disconnecting, THE views SHALL recompute from the updated Account_Store contents.
+
+### Requirement 18: Plaid Link Opens Directly to the Institution Picker
+
+**User Story:** As a user connecting a test bank, I want Plaid Link to take me straight to choosing an institution and signing in, so that I am not stopped by a phone-number or returning-user step that the Sandbox test users cannot satisfy.
+
+#### Acceptance Criteria
+
+1. THE Link_Token request SHALL be configured so that Plaid Link opens directly to the institution-selection and credential-entry flow, without a preceding phone-number or returning-user ("Layer") identity step.
+2. THE system SHALL NOT send any end-user phone number, email, or other returning-user identity hint on the Link_Token request, so that Plaid does not route the session into the returning-user experience.
+3. WHERE Plaid account-level configuration would otherwise enable a phone-number or returning-user step for the Sandbox environment, THE "Connect a test bank" screen SHALL document the one-time Plaid Dashboard Link-customization setting the user must disable, since that setting cannot be overridden from code.
+4. THE "Connect a test bank" screen SHALL state the exact Sandbox sign-in to use to reach the persona accounts: the "user_custom" username with the matching institution JSON as the password, and the default "user_good" / "pass_good" test credentials as an alternative, consistent with Requirement 15.
+5. IF Plaid Link still presents a phone-number step despite the above, THEN THE "Connect a test bank" screen SHALL tell the user, in plain language, that they may enter a Sandbox test phone number and one-time code to continue to the institution picker.
+6. THE Link_Token flow configuration SHALL NOT change the server-only token handling, the Plaid_Mapper, or any calculation; it affects only which Plaid Link screens the user sees.
