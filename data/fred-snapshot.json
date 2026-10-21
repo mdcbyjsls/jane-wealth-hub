@@ -1,5 +1,8 @@
 {
-  "cpi":        { "seriesId": "CPIAUCSL", "value": 315.6, "asOf": "2026-09-01" },
-  "tenYear":    { "seriesId": "DGS10",    "value": 4.1,   "asOf": "2026-10-14" },
-  "threeMonth": { "seriesId": "DTB3",     "value": 4.8,   "asOf": "2026-10-14" }
+  "cpi":            { "seriesId": "CPIAUCSL",     "value": 315.6,   "asOf": "2026-09-01" },
+  "tenYear":        { "seriesId": "DGS10",        "value": 4.1,     "asOf": "2026-10-14" },
+  "threeMonth":     { "seriesId": "DTB3",         "value": 4.8,     "asOf": "2026-10-14" },
+  "mortgageRate":   { "seriesId": "MORTGAGE30US", "value": 6.3,     "asOf": "2026-10-14" },
+  "homePriceIndex": { "seriesId": "CSUSHPINSA",   "value": 322.4,   "asOf": "2026-08-01" },
+  "rentIndex":      { "seriesId": "CUSR0000SEHA", "value": 420.1,   "asOf": "2026-09-01" }
 }

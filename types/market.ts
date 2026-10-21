@@ -8,8 +8,17 @@ import type { AssetClass } from '@/types/accounts';
  * the server-only market-data route hands a resolved snapshot to the client island.
  */
 
-/** The three FRED series this spec uses. DTB3 is new vs the tech.md table. */
-export type MarketSeriesId = 'CPIAUCSL' | 'DGS10' | 'DTB3';
+/**
+ * The FRED series the app uses. Spec 2 uses CPIAUCSL, DGS10, and DTB3; Spec 3
+ * (buy-vs-rent) adds MORTGAGE30US, CSUSHPINSA, and CUSR0000SEHA.
+ */
+export type MarketSeriesId =
+  | 'CPIAUCSL'
+  | 'DGS10'
+  | 'DTB3'
+  | 'MORTGAGE30US' // 30-year fixed mortgage rate → default Mortgage_Rate (R11.4)
+  | 'CSUSHPINSA' // Case-Shiller home price index → default Home_Appreciation_Rate (R11.4)
+  | 'CUSR0000SEHA'; // CPI rent of primary residence → default Rent_Growth_Rate (R11.4)
 
 /** Where a served MarketDataSnapshot came from (R8.6, R9). */
 export type DataSource = 'live' | 'cache' | 'snapshot';
@@ -21,11 +30,18 @@ export interface MarketSeriesValue {
   asOf: string; // ISO date string (serializable across server→client)
 }
 
-/** The resolved set served to the view (R8.6, R9.5). */
+/**
+ * The resolved set served to the view (R8.6, R9.5; R11.1). The Spec 2 fields
+ * (`cpi`, `tenYear`, `threeMonth`, `dataSource`) are unchanged so Spec 2 keeps
+ * working; Spec 3 adds the three new resolved fields it reads.
+ */
 export interface MarketDataSnapshot {
   cpi: MarketSeriesValue; // CPIAUCSL (drives Inflation_Rate)
   tenYear: MarketSeriesValue; // DGS10 (bonds anchor)
   threeMonth: MarketSeriesValue; // DTB3 (cash anchor)
+  mortgageRate: MarketSeriesValue; // MORTGAGE30US (percent per year)
+  homePriceIndex: MarketSeriesValue; // CSUSHPINSA (index level)
+  rentIndex: MarketSeriesValue; // CUSR0000SEHA (index level)
   dataSource: DataSource;
 }
 

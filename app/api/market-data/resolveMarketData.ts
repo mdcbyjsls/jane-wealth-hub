@@ -66,6 +66,9 @@ function toSnapshot(
     cpi: values.cpi,
     tenYear: values.tenYear,
     threeMonth: values.threeMonth,
+    mortgageRate: values.mortgageRate,
+    homePriceIndex: values.homePriceIndex,
+    rentIndex: values.rentIndex,
     dataSource,
   };
 }
