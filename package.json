@@ -13,8 +13,10 @@
   },
   "dependencies": {
     "next": "16.4.2",
+    "plaid": "49.0.0",
     "react": "19.3.1",
     "react-dom": "19.3.1",
+    "react-plaid-link": "5.0.0",
     "recharts": "3.10.1"
   },
   "devDependencies": {

@@ -19,6 +19,7 @@
  * or `lib/fred/` imports; no fetch, no `localStorage`, no clock.
  */
 
+import { LIABILITY_TYPES } from '@/types/accounts';
 import type {
   Account,
   InstitutionGroup,
@@ -31,8 +32,9 @@ const NET_WORTH_LABEL = 'Net worth';
 
 /**
  * Builds a human-readable label for a single liability step. An `Account` has no dedicated name
- * field, so the label combines the owning institution with the account type (always `'liability'`
- * for these accounts) to give the step a stable, descriptive caption, e.g. "Sallie Mae liability".
+ * field, so the label combines the owning institution with the account type (a member of
+ * `LIABILITY_TYPES` — `'liability'` or `'mortgage'`) to give the step a stable, descriptive
+ * caption, e.g. "Sallie Mae liability" or "Wells Fargo mortgage".
  */
 function liabilityLabel(account: Account): string {
   return `${account.institution} ${account.accountType}`;
@@ -80,7 +82,7 @@ export function computeWaterfall(
   for (const group of groups) {
     let assetSubtotal = 0;
     for (const account of group.accounts) {
-      if (account.accountType === 'liability') {
+      if (LIABILITY_TYPES.includes(account.accountType)) {
         liabilityAccounts.push(account);
       } else {
         assetSubtotal += account.balance;

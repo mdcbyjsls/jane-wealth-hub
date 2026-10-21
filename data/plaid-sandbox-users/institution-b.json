@@ -1,0 +1,89 @@
+{
+  "seed": "jwh-institution-b",
+  "override_accounts": [
+    {
+      "type": "investment",
+      "subtype": "401k",
+      "starting_balance": 614510.00,
+      "force_available_balance": 614510.00,
+      "currency": "USD",
+      "meta": {
+        "name": "Gingham 401(k)"
+      },
+      "holdings": [
+        {
+          "institution_price": 285.40,
+          "institution_price_as_of": "2026-10-01",
+          "cost_basis": 198.12,
+          "quantity": 2000,
+          "currency": "USD",
+          "security": {
+            "name": "Vanguard Total Stock Market ETF",
+            "ticker_symbol": "VTI",
+            "currency": "USD"
+          }
+        },
+        {
+          "institution_price": 72.85,
+          "institution_price_as_of": "2026-10-01",
+          "cost_basis": 76.40,
+          "quantity": 600,
+          "currency": "USD",
+          "security": {
+            "name": "Vanguard Total Bond Market ETF",
+            "ticker_symbol": "BND",
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "type": "investment",
+      "subtype": "brokerage",
+      "starting_balance": 309585.00,
+      "force_available_balance": 309585.00,
+      "currency": "USD",
+      "meta": {
+        "name": "Gingham Taxable Brokerage"
+      },
+      "holdings": [
+        {
+          "institution_price": 285.40,
+          "institution_price_as_of": "2026-10-01",
+          "cost_basis": 210.55,
+          "quantity": 850,
+          "currency": "USD",
+          "security": {
+            "name": "Vanguard Total Stock Market ETF",
+            "ticker_symbol": "VTI",
+            "currency": "USD"
+          }
+        },
+        {
+          "institution_price": 72.85,
+          "institution_price_as_of": "2026-10-01",
+          "cost_basis": 74.10,
+          "quantity": 700,
+          "currency": "USD",
+          "security": {
+            "name": "Vanguard Total Bond Market ETF",
+            "ticker_symbol": "BND",
+            "currency": "USD"
+          }
+        },
+        {
+          "institution_price": 1.00,
+          "institution_price_as_of": "2026-10-01",
+          "cost_basis": 1.00,
+          "quantity": 16000,
+          "currency": "USD",
+          "security": {
+            "name": "Vanguard Federal Money Market Fund",
+            "ticker_symbol": "VMFXX",
+            "currency": "USD"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -22,7 +22,10 @@ function account(
   breakdown: AssetClassBreakdown = ALL_CASH,
 ): Account {
   return {
+    id: `${institution}-${accountType}`,
+    source: 'Sample',
     institution,
+    accountName: accountType,
     accountType,
     balance,
     assetClassBreakdown: breakdown,

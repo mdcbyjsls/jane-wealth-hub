@@ -2,18 +2,42 @@
 
 /*
  * ProjectionClient — the interactive client island for the Long-Term Wealth
- * Projection view (Spec 2).
+ * Projection view (Spec 2), now the owner of the account lifecycle (R17).
  *
  * Why this is a client component: everything it owns needs the browser. It
- * fetches the resolved market data from the server-only `/api/market-data`
- * route (the FRED key never reaches the browser), reads the Spec 1 target
- * allocation from the browser-only Target_Store after mount, owns the editable
- * assumptions and the Dollar_Basis toggle, and recomputes the projection via
- * the pure `projection.ts` functions on every change. The server page
- * (`app/projection/page.tsx`, Task 11.1) resolves the target-INDEPENDENT
- * account data and hands this island serializable props; it does NOT fetch
- * market data — that stays here against the server-only route so the loading
- * and error states live entirely in the island without blocking the page shell.
+ * reads the user's accounts from the browser-only Account_Store (R17.1), fetches
+ * the resolved market data from the server-only `/api/market-data` route (the
+ * FRED key never reaches the browser), reads the Spec 1 target allocation from
+ * the browser-only Target_Store after mount, owns the editable assumptions and
+ * the Dollar_Basis toggle, and recomputes the projection via the pure
+ * `projection.ts` functions on every change. The server page
+ * (`app/projection/page.tsx`) is now a thin shell: it renders the
+ * DashboardShell + this island and reads neither the static `data/accounts.json`
+ * nor the FRED route. Both the account lifecycle and the market lifecycle live
+ * entirely in the island so nothing blocks the page shell.
+ *
+ * Account lifecycle and SSR consistency (R17.1–R17.5): `localStorage` is
+ * browser-only, so the first server render and the first client paint MUST NOT
+ * read it — the island therefore starts in an `accounts: 'loading'` state with
+ * NO totals/allocation, so no sample numbers (nor any figure derived from the
+ * static file) ever appear before the store resolves (R17.3). On mount it calls
+ * `loadAccounts()`, runs `validateAccounts` + `computeClassTotals` +
+ * `computeActualAllocation` on the result, and derives `totals`/`allocation`
+ * into client state (R17.1, R17.4). While that first read is pending the island
+ * renders the Spec 1 `LoadingSkeleton` and nothing else (R17.2). The
+ * projection view itself does not mutate accounts — editing happens on the
+ * dashboard — so a single mount-time load is sufficient; `loadAccountsNow` is a
+ * stable callback so the lifecycle could re-run (e.g. on a future focus/mutation
+ * subscription) and reflect store changes (R17.5).
+ *
+ * Account-unavailable (mirrors the old server routing, now store-driven): if the
+ * store ever yields an empty account set, there is nothing to project, so the
+ * island shows the single account-unavailable state (no values, no chart) via
+ * `ProjectionErrorState` with `PROJECTION_MESSAGES.accountError`. This replaces
+ * the server page's account validation/error routing from Spec 1/2; the island
+ * owns it now. A non-empty load always yields a usable `totals`/`allocation`
+ * (the store's `loadAccounts` seeds/falls back to the Sample_Set rather than
+ * returning an invalid set), and `validateAccounts` guards the shape defensively.
  *
  * Market/projection state machine (design "Market-data + projection state
  * machine"):
@@ -22,14 +46,15 @@
  *   RouteError ─▶ Loading ─▶ Ready                            on user retry
  * The three Ready variants differ only in the banner shown (R9.3, R9.4) and the
  * Data_Source carried on each value; the projection renders identically. The
- * AccountError state (R10.3/R10.6) is decided on the server before this island
- * renders, so it is not part of this machine.
+ * market machine is nested BEHIND the accounts gate: the skeleton (accounts
+ * loading) and the account-unavailable state both win over the market machine,
+ * because there is no point fetching a projection for accounts we don't have.
  *
  * Target lifecycle and SSR consistency (mirrors DashboardClient): `localStorage`
  * is browser-only, so state is seeded from `DEFAULT_TARGET` (the 60/20/10/10
  * example) for SSR + first-paint agreement, then the persisted target is read
- * in a mount-only effect. Recompute runs whenever the market data, the
- * assumptions, the dollar basis, or the target change (R3.3, R5.5).
+ * in a mount-only effect. Recompute runs whenever the accounts, the market data,
+ * the assumptions, the dollar basis, or the target change (R3.3, R5.5, R17.5).
  *
  * Dollar basis (R5.2, R5.5, R5.6, R5.7): nominal is the default. On `today`,
  * each series is converted via `toTodaysDollars` using the Inflation_Rate, with
@@ -39,6 +64,11 @@
  * Assumptions recompute is pure and synchronous, so the Dollar_Basis switch and
  * every assumption edit update values and chart well within the 1-second budget
  * (R5.5) without reloading the page.
+ *
+ * Clock boundary: `currentYear` used to arrive as a server-derived prop. With
+ * the page reduced to a thin shell, the island now reads the clock itself in a
+ * mount-only effect (never during render/SSR) so the projection horizons stay
+ * stable across hydration. The year is read once alongside the account load.
  */
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -68,6 +98,12 @@ import {
   toTodaysDollars,
 } from '@/lib/calculations/projection';
 import { projectByClass } from '@/lib/calculations/projectByClass';
+import {
+  computeActualAllocation,
+  computeClassTotals,
+  validateAccounts,
+} from '@/lib/calculations/allocation';
+import { loadAccounts } from '@/lib/accounts/accountStore';
 import { DEFAULT_TARGET, loadTarget } from '@/lib/target/targetStore';
 import { formatCurrency } from '@/lib/format';
 import { PROJECTION_MESSAGES } from '@/lib/projectionMessages';
@@ -83,6 +119,7 @@ import MarketDataBanner from '@/components/ui/MarketDataBanner';
 import ComparisonSummary from '@/components/ui/ComparisonSummary';
 import ProjectionEmptyState from '@/components/ui/ProjectionEmptyState';
 import ProjectionErrorState from '@/components/ui/ProjectionErrorState';
+import LoadingSkeleton from '@/components/ui/LoadingSkeleton';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -117,23 +154,24 @@ type MarketState =
   | { status: 'ready'; snapshot: MarketDataSnapshot }
   | { status: 'error' };
 
+/**
+ * The island's account lifecycle (R17). `loading` is the pre-mount / first-read
+ * state in which NO figures derived from any account exist, so the skeleton
+ * shows and no sample numbers leak (R17.2, R17.3). `ready` carries the
+ * target-independent `totals` + `allocation` computed from the stored accounts
+ * (R17.1, R17.4). `unavailable` is the store-driven account-error state (no
+ * usable accounts → nothing to project).
+ */
+type AccountsState =
+  | { status: 'loading' }
+  | { status: 'ready'; totals: ClassTotals; allocation: AllocationResult }
+  | { status: 'unavailable' };
+
 // ---------------------------------------------------------------------------
 // Props
 // ---------------------------------------------------------------------------
 
 export interface ProjectionClientProps {
-  /**
-   * The current actual allocation from Spec 1 (target-independent), carrying the
-   * per-class percentages used to derive the current blended return.
-   */
-  allocation: AllocationResult;
-  /**
-   * The per-class dollar totals from Spec 1. The Projected_Base is the sum of
-   * the four class totals — the Spec 1 total of all non-liability balances (R1.1).
-   */
-  totals: ClassTotals;
-  /** The current calendar year, derived on the server at the boundary (no clock read here). */
-  currentYear: number;
   /** Extra Tailwind classes merged onto the island container. */
   className?: string;
 }
@@ -217,11 +255,17 @@ function initialAssumptions(): AssumptionValues {
 // ---------------------------------------------------------------------------
 
 export default function ProjectionClient({
-  allocation,
-  totals,
-  currentYear,
   className,
 }: ProjectionClientProps): React.ReactElement {
+  // Account lifecycle (R17): starts in `loading` so SSR + first paint show the
+  // skeleton and never a figure derived from the static file (R17.2, R17.3).
+  const [accountsState, setAccountsState] = useState<AccountsState>({ status: 'loading' });
+
+  // The current calendar year. Seeded to 0 and read from the clock only after
+  // mount (never during render/SSR) so the server and first client paint agree;
+  // the projection stays in the skeleton until the mount load resolves this.
+  const [currentYear, setCurrentYear] = useState<number>(0);
+
   // Market-data lifecycle (Loading → Ready | RouteError, with retry).
   const [marketState, setMarketState] = useState<MarketState>({ status: 'loading' });
 
@@ -241,6 +285,38 @@ export default function ProjectionClient({
     setTarget(loadTarget());
     setHasLoadedTarget(true);
   }, []);
+
+  // Read the stored accounts and derive the target-independent figures (R17.1,
+  // R17.4). Defensive end to end: `loadAccounts` never throws and always yields
+  // a usable set (seeding/falling back to the Sample_Set when nothing valid is
+  // stored), and `validateAccounts` guards the shape before any number is
+  // computed. An empty set — or a set the calculator rejects — resolves to the
+  // account-unavailable state (nothing to project). Declared as a stable
+  // callback so the lifecycle can be re-run to reflect store mutations (R17.5);
+  // the projection view does not mutate accounts itself (editing happens on the
+  // dashboard), so a mount-time load is sufficient here.
+  const loadAccountsNow = useCallback((): void => {
+    const { accounts } = loadAccounts();
+    if (accounts.length === 0) {
+      setAccountsState({ status: 'unavailable' });
+      return;
+    }
+    const validation = validateAccounts(accounts);
+    if (!validation.ok) {
+      setAccountsState({ status: 'unavailable' });
+      return;
+    }
+    const totals = computeClassTotals(validation.accounts);
+    const allocation = computeActualAllocation(totals);
+    setAccountsState({ status: 'ready', totals, allocation });
+  }, []);
+
+  // Mount-only: read the browser-only clock and the stored accounts. Runs after
+  // hydration so neither affects the server render (R17.2, R17.3).
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear());
+    loadAccountsNow();
+  }, [loadAccountsNow]);
 
   // Fetch the resolved market data from the server-only route. A 2xx snapshot
   // → Ready with its dataSource; any error / !ok / network fault → RouteError
@@ -271,8 +347,21 @@ export default function ProjectionClient({
     void loadMarketData();
   }, [loadMarketData]);
 
+  // The target-independent figures once the store has resolved them (R17.4).
+  // Before accounts load (or when unavailable) these are null, and the accounts
+  // gate below renders the skeleton / account-error state instead of any figure
+  // — so the memos that read them never produce sample numbers (R17.2, R17.3).
+  const accountsReady = accountsState.status === 'ready' ? accountsState : null;
+  const totals: ClassTotals | null = accountsReady ? accountsReady.totals : null;
+  const allocation: AllocationResult | null = accountsReady ? accountsReady.allocation : null;
+
   // Projected_Base (R1.1) — target-independent, so derived once from totals.
-  const projectedBase = useMemo(() => computeProjectedBase(totals), [totals]);
+  // Zero when accounts haven't resolved; the accounts gate suppresses render
+  // in that window so the value is never shown.
+  const projectedBase = useMemo(
+    () => (totals === null ? 0 : computeProjectedBase(totals)),
+    [totals],
+  );
   const isZeroBase = projectedBase === 0;
 
   // The derived Return_Model (R2.1–R2.5). Only meaningful once market data is
@@ -302,7 +391,7 @@ export default function ProjectionClient({
   // active Dollar_Basis. Recomputes on any market/assumption/basis/target change
   // (R3.3, R5.5). Pure functions, so this is cheap and synchronous (< 1s, R5.5).
   const projection = useMemo(() => {
-    if (returnModel === null) {
+    if (returnModel === null || allocation === null) {
       return null;
     }
     const multipliers: ScenarioMultipliers = assumptions.multipliers;
@@ -356,7 +445,7 @@ export default function ProjectionClient({
     assumptions.multipliers,
     assumptions.annualContribution,
     assumptions.inflationRate,
-    allocation.percentages,
+    allocation,
     target,
     projectedBase,
     currentYear,
@@ -369,7 +458,7 @@ export default function ProjectionClient({
   // the SAME today's-dollars discounting used for the fan series above, so the
   // two charts stay in one consistent basis as the toggle flips (R6.5).
   const perClassSeries = useMemo<Record<AssetClass, ProjectedPoint[]> | null>(() => {
-    if (returnModel === null) {
+    if (returnModel === null || allocation === null) {
       return null;
     }
     const nominal = projectByClass(allocation.classDollars, returnModel, currentYear);
@@ -384,7 +473,7 @@ export default function ProjectionClient({
     return discounted;
   }, [
     returnModel,
-    allocation.classDollars,
+    allocation,
     currentYear,
     effectiveBasis,
     assumptions.inflationRate,
@@ -421,6 +510,31 @@ export default function ProjectionClient({
 
   // The active-basis label used in the chart's text alternative (R5.4).
   const basisLabel = effectiveBasis === 'today' ? "today's dollars" : 'future dollars';
+
+  // Accounts gate (R17.2, R17.3): while the stored accounts are loading — which
+  // includes the SSR + first-paint window, since `localStorage` is browser-only
+  // — show the Spec 1 loading skeleton and NOTHING else. No figure derived from
+  // the static file (or any sample number) is ever on screen before the store
+  // resolves. This gate sits in front of the market machine: there is no point
+  // showing a projection for accounts we don't yet have.
+  if (accountsState.status === 'loading') {
+    return (
+      <div className={`flex flex-col gap-8 ${className ?? ''}`}>
+        <LoadingSkeleton />
+      </div>
+    );
+  }
+
+  // Account-unavailable (store-driven): no usable accounts → nothing to project.
+  // Mirrors the old server-side account-error routing; the island owns it now.
+  // Shows no projected values and no chart (ProjectionErrorState renders neither).
+  if (accountsState.status === 'unavailable') {
+    return (
+      <div className={`flex flex-col gap-8 ${className ?? ''}`}>
+        <ProjectionErrorState message={PROJECTION_MESSAGES.accountError} />
+      </div>
+    );
+  }
 
   return (
     <div

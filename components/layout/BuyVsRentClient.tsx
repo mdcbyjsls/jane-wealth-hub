@@ -9,12 +9,29 @@
  * route (the FRED key never reaches the browser), seeds the editable
  * assumptions with market-derived defaults once the snapshot resolves, owns the
  * Dollar_Basis toggle, and recomputes the comparison via the pure
- * `buyVsRent.ts` `computeComparison` on every change. The server page
- * (`app/buy-vs-rent/page.tsx`, Task 10.1) resolves the account data (Spec 1)
- * and hands this island serializable props (`allocation`, `totals`,
- * `currentYear`); it does NOT fetch market data — that stays here against the
- * server-only route so the loading and error states live entirely in the island
- * without blocking the page shell.
+ * `buyVsRent.ts` `computeComparison` on every change.
+ *
+ * Account lifecycle (Task 18.3, R17.1–R17.5): the Starting_Assets no longer
+ * arrive as server props. On mount this island reads the user's account set
+ * from the browser-only Account_Store (`loadAccounts`), validates it, and
+ * derives the per-class `totals` (Starting_Assets, R2.1) and the actual
+ * `allocation` (Current_Allocation) with the same pure calculators the server
+ * used to call. While that read is pending the island shows the Spec 1
+ * `LoadingSkeleton` and renders NO figures — so sample numbers never flash
+ * before the store resolves (R17.2, R17.3). An empty or unreadable store routes
+ * to the single account-unavailable state (R12.3). Because the computed
+ * `totals`/`allocation` are plain `useMemo` derivations of the loaded accounts,
+ * any future store mutation that re-runs the load re-derives them and the whole
+ * comparison recomputes (R17.5). SSR consistency: the initial accounts state is
+ * `loading` (never the static file), matching the server render.
+ *
+ * The server page (`app/buy-vs-rent/page.tsx`) is now a thin shell: it renders
+ * the DashboardShell and this island behind its error boundary, and hands down
+ * only the serializable `currentYear`. It does NOT read `data/accounts.json`,
+ * compute anything, or fetch market data — the account read happens here against
+ * the browser store and the market read happens here against the server-only
+ * route, so every loading and error state lives entirely in the island without
+ * blocking the page shell.
  *
  * Market/comparison state machine (design "Market-data + comparison state
  * machine"), mirroring ProjectionClient exactly:
@@ -24,9 +41,11 @@
  * The three Ready variants differ only in the banner shown (R11.5, R11.6) and
  * the dataSource carried on the snapshot; the comparison renders identically.
  * The AccountError state (R12.3) is decided on the server before this island
- * renders, so it is not part of this machine. The over-budget purchase (R3.6)
- * and inflation-unavailable (R10.6) cases are Ready SUB-states, not machine
- * errors: the comparison still renders.
+ * renders, so it is not part of this machine. The AccountError state (R12.3)
+ * now belongs to the island's account lifecycle (above), which gates this
+ * market machine: an account-unavailable store wins and this machine is never
+ * reached. The over-budget purchase (R3.6) and inflation-unavailable (R10.6)
+ * cases are Ready SUB-states, not machine errors: the comparison still renders.
  *
  * Seeding (R11.4): once a snapshot resolves, the editable BuyVsRentAssumptions
  * are seeded with market-derived defaults — Mortgage_Rate directly from
@@ -49,7 +68,12 @@
  */
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import type { AllocationResult, AssetClass, ClassTotals } from '@/types/accounts';
+import type {
+  Account,
+  AllocationResult,
+  AssetClass,
+  ClassTotals,
+} from '@/types/accounts';
 import type {
   DollarBasis,
   MarketDataError,
@@ -70,6 +94,12 @@ import {
   computeVerdict,
   findBreakevenYear,
 } from '@/lib/calculations/buyVsRent';
+import {
+  computeActualAllocation,
+  computeClassTotals,
+  validateAccounts,
+} from '@/lib/calculations/allocation';
+import { loadAccounts } from '@/lib/accounts/accountStore';
 import { computeYear10Composition } from '@/lib/calculations/composition';
 import { computeTornado } from '@/lib/calculations/sensitivityTornado';
 import { DEFAULT_SCENARIO_MULTIPLIERS } from '@/lib/calculations/projection';
@@ -98,6 +128,8 @@ import SensitivityCard from '@/components/ui/SensitivityCard';
 import AllocationShiftCard from '@/components/ui/AllocationShiftCard';
 import CushionCard from '@/components/ui/CushionCard';
 import BuyVsRentErrorState from '@/components/ui/BuyVsRentErrorState';
+import RentAssumptionNote from '@/components/ui/RentAssumptionNote';
+import LoadingSkeleton from '@/components/ui/LoadingSkeleton';
 
 // ---------------------------------------------------------------------------
 // Constants (documented defaults — R11.4, R9.1)
@@ -152,15 +184,23 @@ type MarketState =
   | { status: 'ready'; snapshot: MarketDataSnapshot }
   | { status: 'error' };
 
+/**
+ * The island's account lifecycle (Task 18.3, R17.1–R17.3), running IN FRONT of
+ * the market machine above. `loading` is the initial, SSR-consistent state (no
+ * figures, no sample numbers); `ready` carries the validated account set the
+ * Starting_Assets are derived from; `error` is the single account-unavailable
+ * route for an empty or unreadable store (R12.3).
+ */
+type AccountsState =
+  | { status: 'loading' }
+  | { status: 'ready'; accounts: Account[] }
+  | { status: 'error' };
+
 // ---------------------------------------------------------------------------
 // Props
 // ---------------------------------------------------------------------------
 
 export interface BuyVsRentClientProps {
-  /** The current actual allocation from Spec 1, carrying the per-class percentages. */
-  allocation: AllocationResult;
-  /** The per-class dollar totals from Spec 1 — the Starting_Assets (R2.1). */
-  totals: ClassTotals;
   /** The current calendar year, derived on the server at the boundary (no clock read here). */
   currentYear: number;
   /** Extra Tailwind classes merged onto the island container. */
@@ -342,8 +382,6 @@ function year10Figures(bands: PathBands): Year10PathFigures {
 // ---------------------------------------------------------------------------
 
 export default function BuyVsRentClient({
-  allocation,
-  totals,
   currentYear,
   className,
 }: BuyVsRentClientProps): React.ReactElement {
@@ -352,6 +390,63 @@ export default function BuyVsRentClient({
   // needed by the year-offset-indexed band math, but we accept it per the Task
   // 10.1 prop contract and to keep the discount convention explicit.
   void currentYear;
+
+  // Account lifecycle (Task 18.3, R17.1–R17.3). Starts in `loading` so SSR and
+  // the first client paint agree and no sample numbers ever appear before the
+  // browser-only store is read. The store read happens in a mount effect below.
+  const [accountsState, setAccountsState] = useState<AccountsState>({
+    status: 'loading',
+  });
+
+  // Read the account set from the browser-only Account_Store after mount, then
+  // validate it (R17.1). `loadAccounts` is total and never throws under SSR or
+  // an unavailable localStorage, and it seeds/falls back to the Sample_Set when
+  // nothing usable is stored, so the common case yields a non-empty valid set.
+  // An empty set, or a set that fails validation, routes to the single account-
+  // unavailable state (R12.3) — the same outcome the server page used to decide.
+  // This is the recompute baseline (R17.5): a future store mutation that calls
+  // this loader again re-derives `totals`/`allocation` below and the whole
+  // comparison recomputes, with no change to any calculator.
+  useEffect(() => {
+    const result = loadAccounts();
+    const validation = validateAccounts(result.accounts);
+    if (!validation.ok || validation.accounts.length === 0) {
+      setAccountsState({ status: 'error' });
+      return;
+    }
+    setAccountsState({ status: 'ready', accounts: validation.accounts });
+  }, []);
+
+  // The loaded, validated account set — or null until the store resolves. Every
+  // account-derived figure below keys off this, so nothing is computed from a
+  // static file and nothing renders before the real set is in hand (R17.3).
+  const accounts: Account[] | null =
+    accountsState.status === 'ready' ? accountsState.accounts : null;
+
+  // Starting_Assets (R2.1) and Current_Allocation, derived client-side from the
+  // loaded accounts with the SAME pure calculators the server used to call.
+  // Null while accounts are loading/unavailable so the render gate suppresses
+  // every figure and chart. Recomputes whenever the loaded set changes (R17.5).
+  const totals: ClassTotals | null = useMemo(
+    () => (accounts === null ? null : computeClassTotals(accounts)),
+    [accounts],
+  );
+  const allocation: AllocationResult | null = useMemo(
+    () => (totals === null ? null : computeActualAllocation(totals)),
+    [totals],
+  );
+
+  // Rent_Assumption_Note presence (R11.1, R11.4): the note is mounted iff a
+  // Mortgage_Account (`accountType === 'mortgage'`) is present among the loaded
+  // accounts, and not mounted otherwise. This is a pure read of the loaded set;
+  // it deliberately feeds NOTHING into the comparison inputs, so mortgage
+  // presence never changes the buy-vs-rent result (R11.5).
+  const hasMortgage = useMemo(
+    () =>
+      accounts !== null &&
+      accounts.some((account) => account.accountType === 'mortgage'),
+    [accounts],
+  );
 
   // Market-data lifecycle (Loading → Ready | RouteError, with retry).
   const [marketState, setMarketState] = useState<MarketState>({ status: 'loading' });
@@ -424,7 +519,12 @@ export default function BuyVsRentClient({
   // the assumptions are seeded; null otherwise so the render gate suppresses the
   // figures/chart. Pure and synchronous, so this is cheap (< 1s, R9.3, R10.5).
   const comparison: ComparisonResult | null = useMemo(() => {
-    if (marketState.status !== 'ready' || assumptions === null) {
+    if (
+      marketState.status !== 'ready' ||
+      assumptions === null ||
+      totals === null ||
+      allocation === null
+    ) {
       return null;
     }
     return computeComparison({
@@ -434,13 +534,16 @@ export default function BuyVsRentClient({
       returnAssumptions: DEFAULT_RETURN_ASSUMPTIONS,
       assumptions,
     });
-  }, [marketState, assumptions, totals, allocation.percentages]);
+  }, [marketState, assumptions, totals, allocation]);
 
   // The Starting_Assets total — the single figure the pure band/composition/
   // tornado helpers consume. Memoized so the override recompute below keys on a
   // stable number rather than the ClassTotals object identity.
   const startingAssetsTotal = useMemo(
-    () => ASSET_CLASS_KEYS.reduce((sum, key) => sum + totals[key], 0),
+    () =>
+      totals === null
+        ? 0
+        : ASSET_CLASS_KEYS.reduce((sum, key) => sum + totals[key], 0),
     [totals],
   );
 
@@ -593,8 +696,39 @@ export default function BuyVsRentClient({
             formatCurrency(display.verdictGap),
           );
 
+  // Account lifecycle gate (Task 18.3, R17.2, R17.3), running IN FRONT of the
+  // market machine. While the browser-only store read is pending we show the
+  // Spec 1 LoadingSkeleton and NOTHING else — no figures, no sample numbers. An
+  // empty/unreadable store is the single account-unavailable route (R12.3), and
+  // it wins over any later market-data state because the market machine below is
+  // only reached once accounts are ready.
+  if (accountsState.status === 'loading') {
+    return (
+      <div className={`flex flex-col gap-8 ${className ?? ''}`} aria-busy>
+        <LoadingSkeleton />
+      </div>
+    );
+  }
+
+  if (accountsState.status === 'error') {
+    return (
+      <div className={`flex flex-col gap-8 ${className ?? ''}`}>
+        <BuyVsRentErrorState message={BUY_VS_RENT_MESSAGES.accountError} />
+      </div>
+    );
+  }
+
   return (
     <div className={`flex flex-col gap-8 ${className ?? ''}`}>
+      {/* Accounts are ready. The Rent_Assumption_Note sits above the comparison
+          and is mounted iff a Mortgage_Account is present among the loaded
+          accounts (R11.1); it is NOT mounted otherwise (R11.4). It is purely
+          informational and feeds nothing into the comparison inputs, so mortgage
+          presence never changes the buy-vs-rent result (R11.5). It renders
+          regardless of the market machine's state so the acknowledgement is
+          visible even while market data is still loading. */}
+      {hasMortgage ? <RentAssumptionNote /> : null}
+
       {/* Loading: no figures, no chart, just the plain-language indication (R12.1). */}
       {marketState.status === 'loading' ? (
         <div
@@ -617,6 +751,7 @@ export default function BuyVsRentClient({
       {marketState.status === 'ready' &&
       assumptions !== null &&
       comparison !== null &&
+      allocation !== null &&
       display !== null ? (
         <>
           {/* Freshness banner/note for cache + snapshot; nothing for live (R11.5, R11.6). */}

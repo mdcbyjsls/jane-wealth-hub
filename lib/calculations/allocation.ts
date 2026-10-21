@@ -12,6 +12,7 @@
  * so subsequent functions can reuse them.
  */
 
+import { LIABILITY_TYPES } from '@/types/accounts';
 import type {
   Account,
   AccountType,
@@ -60,6 +61,7 @@ const KNOWN_ACCOUNT_TYPES: readonly AccountType[] = [
   'HYSA',
   'checking',
   'liability',
+  'mortgage',
 ];
 
 /** The four asset-class keys every `AssetClassBreakdown` must carry as finite numbers. */
@@ -97,6 +99,16 @@ function isKnownAccountType(value: unknown): value is AccountType {
     typeof value === 'string' &&
     (KNOWN_ACCOUNT_TYPES as readonly string[]).includes(value)
   );
+}
+
+/**
+ * True when an account type is a liability, i.e. a member of the `LIABILITY_TYPES` source of
+ * truth (`'liability'` or `'mortgage'`). This single membership check replaces every
+ * `accountType === 'liability'` comparison so the two liability types are handled identically:
+ * their balances are subtracted from net worth and excluded from asset-class totals (R12.1–R12.3).
+ */
+function isLiabilityType(accountType: AccountType): boolean {
+  return LIABILITY_TYPES.includes(accountType);
 }
 
 /** Builds a `ValidationError`, keeping the shape consistent across every check. */
@@ -287,12 +299,14 @@ function validateLastUpdatedDaysAgo(
  * Validates `assetClassBreakdown` (R7.1, R7.2, R7.4):
  * - present and an object carrying numeric stocks/bonds/cash/other;
  * - for NON-liability accounts, the four percentages must sum to 100 within ±0.01 points (R7.2);
- * - LIABILITY accounts are exempt from the sum rule and accept any numeric breakdown (R7.4).
+ * - LIABILITY accounts (`liability` or `mortgage`, per LIABILITY_TYPES) are exempt from the sum
+ *   rule and accept any numeric breakdown (R7.4).
  *
  * The sum rule is only evaluated when the breakdown is a well-formed object of finite numbers;
  * checking the sum of non-numeric values would be meaningless. The liability exemption applies
- * only when `accountType` was validated as 'liability'; if the type was missing/invalid we fall
- * back to enforcing the sum rule so a malformed account is not silently exempted.
+ * only when `accountType` was validated as a member of LIABILITY_TYPES; if the type was
+ * missing/invalid we fall back to enforcing the sum rule so a malformed account is not silently
+ * exempted.
  */
 function validateBreakdown(
   value: unknown,
@@ -350,8 +364,9 @@ function validateBreakdown(
   }
 
   // Only non-liability accounts are subject to the sum rule, and only once the four values are
-  // confirmed numeric (R7.2, R7.4).
-  if (allNumeric && accountType !== 'liability') {
+  // confirmed numeric (R7.2, R7.4). Both `liability` and `mortgage` are exempt via LIABILITY_TYPES;
+  // a missing/invalid type (`undefined`) is NOT exempt, so a malformed account still gets the rule.
+  if (allNumeric && (accountType === undefined || !isLiabilityType(accountType))) {
     const sum =
       (value.stocks as number) +
       (value.bonds as number) +
@@ -378,7 +393,8 @@ function validateBreakdown(
  * Aggregates validated accounts into total assets, total liabilities, and net worth (R1.1).
  *
  * Assets are the balances of every non-liability account; liabilities are the balances of every
- * `liability` account. Liability balances are stored as positive amounts owed (see `Account`), so
+ * liability account (type `liability` or `mortgage`, per LIABILITY_TYPES). Liability balances are
+ * stored as positive amounts owed (see `Account`), so
  * `totalLiabilities` is the positive total and `netWorth = totalAssets - totalLiabilities`. Net
  * worth is allowed to be negative when liabilities exceed assets and flows through unchanged
  * (R1.4). An empty account set yields zeros for all three values (R1.1 / R6.4).
@@ -391,7 +407,7 @@ export function computeNetWorth(accounts: Account[]): NetWorthResult {
   let totalLiabilities = 0;
 
   for (const account of accounts) {
-    if (account.accountType === 'liability') {
+    if (isLiabilityType(account.accountType)) {
       totalLiabilities += account.balance;
     } else {
       totalAssets += account.balance;
@@ -477,7 +493,8 @@ export function computeInstitutionGroups(accounts: Account[]): InstitutionGroup[
  * breakdown percentage for that class: `balance * (assetClassBreakdown[class] / 100)`. The four
  * classes are iterated via the shared `ASSET_CLASS_KEYS` so the sum stays exhaustive and DRY.
  *
- * LIABILITY accounts are excluded entirely — they contribute to no class total (R3.6). All four
+ * LIABILITY accounts (type `liability` or `mortgage`, per LIABILITY_TYPES) are excluded entirely —
+ * they contribute to no class total (R3.6). All four
  * totals start at 0, so an empty account set or an all-liability set yields
  * `{ stocks: 0, bonds: 0, cash: 0, other: 0 }`.
  *
@@ -489,7 +506,7 @@ export function computeClassTotals(accounts: Account[]): ClassTotals {
   const totals: ClassTotals = { stocks: 0, bonds: 0, cash: 0, other: 0 };
 
   for (const account of accounts) {
-    if (account.accountType === 'liability') {
+    if (isLiabilityType(account.accountType)) {
       continue;
     }
     for (const key of ASSET_CLASS_KEYS) {

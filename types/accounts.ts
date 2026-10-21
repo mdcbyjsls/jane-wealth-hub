@@ -9,7 +9,19 @@ export type AccountType =
   | '401(k)'
   | 'HYSA'
   | 'checking'
-  | 'liability';
+  | 'liability'
+  | 'mortgage'; // distinct liability type that triggers the Decision-view rent note (R10.3, R11)
+
+/** The origin of an account; every account has exactly one Source (R1.1). */
+export type AccountSource = 'Sample' | 'Manual' | 'Connected';
+
+/**
+ * The single source of truth for the liability check, replacing the Spec 1
+ * `accountType === 'liability'` comparisons in the calculators (R12). An account whose
+ * type is in this list is a Liability_Account: its balance is the amount owed, stored
+ * positive and subtracted from net worth, and it is excluded from asset-class totals.
+ */
+export const LIABILITY_TYPES: readonly AccountType[] = ['liability', 'mortgage'];
 
 /** Percentages for each class; for non-liability accounts these sum to 100 (within tolerance). */
 export interface AssetClassBreakdown {
@@ -20,7 +32,13 @@ export interface AssetClassBreakdown {
 }
 
 export interface Account {
+  /** Stable, unique within the store; persists across edits (R1.2). */
+  id: string;
+  /** Exactly one of Sample/Manual/Connected (R1.1). */
+  source: AccountSource;
   institution: string;          // 1–120 chars, non-empty (R7.1)
+  /** Shown in the editor and used in Account_Match_Key; 1–120 chars, non-empty (R4.5). */
+  accountName: string;
   accountType: AccountType;
   /** Positive number. For liabilities this is the amount owed, stored positive and subtracted. */
   balance: number;              // finite (R7.3)
@@ -33,7 +51,69 @@ export interface Account {
    * calculator; the JSON never stores an absolute date.
    */
   lastUpdatedDaysAgo: number;   // integer >= 0
+
+  // Source-specific fields, all optional so the one Account shape serves every Source.
+  /** ISO date; Manual only — shown in place of a staleness flag (R5.2, R5.3). */
+  updatedByYouDate?: string;
+  /** Connected only; part of Account_Match_Key (R4.5). */
+  mask?: string | null;
+  /** Connected only; groups a Plaid_Item's accounts (R9). */
+  plaidInstitutionId?: string;
+  /** Connected only; a user-supplied split shown as "adjusted by you" (R4.2, R4.3). */
+  splitOverride?: AssetClassBreakdown;
+  /** Connected investment with no holdings; flags "Allocation needs your input" (R10.7, R13.3). */
+  allocationNeedsInput?: boolean;
 }
+
+/**
+ * The tuple used on reconnect to decide whether a freshly fetched Connected_Account is the same
+ * account as one connected before, so a Split_Override can be carried across a reconnect (R4.5).
+ * Equality is case-insensitive on `institution` + `accountName`, exact on `mask`. A prior override
+ * whose key matches no fresh account is dropped and reported (R4.6).
+ */
+export interface AccountMatchKey {
+  institution: string;
+  accountName: string;
+  mask: string | null;
+}
+
+// ---------------------------------------------------------------------------
+// Account_Store: stored shape, load result, and Source_Mix_Summary (R1.4, R7)
+// ---------------------------------------------------------------------------
+
+/** localStorage key for the persisted account set; mirrors Target_Store's `'jwh.targetAllocation'`. */
+export const ACCOUNTS_STORAGE_KEY = 'jwh.accounts';
+
+/**
+ * The outcome of `loadAccounts`: the usable set plus which of the four recovery branches produced
+ * it (R7.2, R7.4, R7.5). The store parses defensively, validates each element, and never throws.
+ *   - `ok`       — valid stored set loaded as-is (R7.3)
+ *   - `seeded`   — nothing stored, Sample_Set seeded (R7.2)
+ *   - `partial`  — some invalid entries dropped, valid kept; `dropped` counts the losses (R7.4)
+ *   - `fallback` — unreadable or all-invalid, Sample_Set restored (R7.5)
+ */
+export interface AccountLoadResult {
+  accounts: Account[];
+  recovery:
+    | { kind: 'ok' }
+    | { kind: 'seeded' }
+    | { kind: 'partial'; dropped: number }
+    | { kind: 'fallback' };
+}
+
+/**
+ * One row of the Source_Mix_Summary (R1.4): a Source present in the account set, how many accounts
+ * carry it, and that Source's share of total assets (liabilities excluded from the share basis,
+ * consistent with allocation). Derived by a pure helper (`lib/calculations/sourceMix.ts`).
+ */
+export interface SourceMixEntry {
+  source: AccountSource;
+  count: number;
+  assetSharePct: number;
+}
+
+/** One entry per Source present in the account set (R1.4). */
+export type SourceMixSummary = SourceMixEntry[];
 
 // ---------------------------------------------------------------------------
 // Calculation result models (R1.1, R2.2, R3.2, R4.1)
@@ -144,6 +224,31 @@ export interface InstitutionFreshness {
 
 export interface FreshnessResult {
   byInstitution: InstitutionFreshness[];
+}
+
+/**
+ * Source-aware freshness for a single account (R5.1, R5.4). The Spec 1 Stale_Rule (3-day
+ * Freshness_Threshold) still governs Sample_Accounts and, where freshness information is present,
+ * Connected_Accounts. Manual_Accounts are EXEMPT: they are never stale no matter how long ago they
+ * were edited, and instead expose an "Updated by you on [date]" basis drawn from `updatedByYouDate`.
+ *
+ * `basis` is a discriminated union so a caller renders the correct affordance without re-deriving
+ * the rule:
+ *   - `{ kind: 'staleness' }` — apply the Stale_Rule; read `isStale` (Sample / Connected).
+ *   - `{ kind: 'updatedByYou'; date }` — show "Updated by you on [date]" in place of a staleness
+ *     flag; `isStale` is always false (Manual). `date` is the parsed `updatedByYouDate` when it is
+ *     a valid ISO date, else `null` so the caller can fall back gracefully without the basis ever
+ *     flipping a Manual account to stale.
+ */
+export interface AccountFreshnessStatus {
+  /** Never true for a Manual_Account; otherwise true iff the Stale_Rule fires (R5.1, R5.4). */
+  isStale: boolean;
+  /** Absolute date derived at the boundary from `now − lastUpdatedDaysAgo days`. */
+  lastUpdated: Date;
+  /** Which display basis applies — a staleness flag, or the Manual "Updated by you" date. */
+  basis:
+    | { kind: 'staleness' }
+    | { kind: 'updatedByYou'; date: Date | null };
 }
 
 // ---------------------------------------------------------------------------

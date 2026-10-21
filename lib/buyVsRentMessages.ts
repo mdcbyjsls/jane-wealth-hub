@@ -200,3 +200,24 @@ export function sourceLabel(seriesName: string, asOfDate: string): string {
 export function defaultSourceLabel(): string {
   return "Default assumption, editable";
 }
+
+/**
+ * Rent_Assumption_Note copy (R11.1, R11.3).
+ *
+ * Shown in the Decision_View only when a Mortgage_Account is present among the
+ * accounts (R11.1). The note is purely informational and does not change the
+ * buy-vs-rent calculation, which continues to assume the user rents today
+ * (R11.5). It is non-blocking (R11.2) and offers a continue action that
+ * dismisses it for the current session (R11.3).
+ */
+export const RENT_ASSUMPTION_NOTE = {
+  /** R11.1 — states the comparison assumes the user currently rents. */
+  body:
+    "You have a mortgage on file. This comparison still assumes you rent today, so the renting path invests money a current homeowner may not have free to invest.",
+
+  /** R11.3 — the continue/dismiss control label. */
+  continueLabel: "Continue",
+
+  /** Accessible label for the continue control, for assistive tech. */
+  continueAriaLabel: "Continue and dismiss this note for now",
+} as const;

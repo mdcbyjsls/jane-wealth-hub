@@ -14,7 +14,10 @@ import type { Account, AssetClassBreakdown, ValidationError } from '@/types/acco
  */
 function goodAccount(overrides: Partial<Account> = {}): Account {
   return {
+    id: 'acct-fidelity',
+    source: 'Sample',
     institution: 'Fidelity',
+    accountName: 'Brokerage',
     accountType: 'brokerage',
     balance: 1000,
     assetClassBreakdown: { stocks: 60, bonds: 20, cash: 10, other: 10 },
